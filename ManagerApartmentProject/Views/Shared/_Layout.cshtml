@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ManagerApartmentProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/sidebar.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <input type="checkbox" id="sidebar-toggle">
+
+            <!-- Side bar -->
+            <div class="col-xs-12 col-sm-12 col-md-2 sidebar" id="sidebar">
+                <header>
+                    <h2 class="sidebar-brand"><span class="glyphicon glyphicon-star"></span><span>Apartments</span></h2>
+                </header>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item"><a href=""><span>Bảng Điều Khiển</span></a></li>
+                    <!-- <li><a href="">Quản Lý Căn Hộ</a></li>
+                    <li>
+                        <a href="#" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false" aria-controls="#collapse-1">
+
+                        </a>
+                        <ul class="collapse" id="collapse-1">
+                            <a href=""><span class="glyphicon glyphicon-menu-right"></span>Sub item 1</a>
+                            <a href=""><span class="glyphicon glyphicon-menu-right"></span>Sub item 2</a>
+                            <a href=""><span class="glyphicon glyphicon-menu-right"></span>Sub item 3</a>
+                        </ul>
+                    </li>
+                    -->
+
+                </ul>
+            </div>
+
+
+            <!-- Content -->
+            <div class="col-xs-12 col-sm-12 col-md-10 p-no m-no" id="content">
+                <!-- Navbar -->
+                <nav class="navbar navbar-default" id="navbar-menu">
+                    <div class="nav-header">
+                        <label for="sidebar-toggle" class="abtn">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="glyphicon glyphicon-align-left"></span>
+                        </label>
+                        <!-- <a class="navbar-brand" href="#">Title</a> -->
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-home"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-bell"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Alexander Aside
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End NavBar -->
+
+                <!-- Main -->
+                <main>
+                    @RenderBody()
+
+                </main>
+                <!-- End Main -->
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - ManagerApartmentProject - <a asp-area="" asp-controller="Home"
+                asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body >
+</html >

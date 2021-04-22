@@ -6,10 +6,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Trần Hưng Trọng	
--- Create date: 21/04/2021
+-- Alter date: 21/04/2021
 -- Description:	Proceduce cho modul quản lý thông báo
 -- =============================================
-CREATE PROCEDURE Notification_Add
+Alter PROCEDURE Notification_Add
     @title nvarchar(200),
     @content nvarchar(MAX),
     @date_release date,
@@ -29,7 +29,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE Notification_EditByID
+Alter PROCEDURE Notification_EditByID
 	@ID int,
     @title nvarchar(200),
     @content nvarchar(MAX),
@@ -114,7 +114,7 @@ BEGIN
 		,creator
 	From work_tmp
 	Where row# >= @start and row# < @end
-
+	Order by date_release DESC
 END
 GO
 
@@ -134,8 +134,6 @@ Begin
 			,[Admin].[name] as creator
 		FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
 		Where [Admin].ID = @creatorId
-		Order by date_release DESC
-
 	)
 	Select [ID]
 		,[title]
@@ -144,6 +142,7 @@ Begin
 		,creator
 	From work_tmp
 	Where row# >= @start and row# < @end
+	Order by date_release DESC
 end
 
 GO
@@ -172,3 +171,105 @@ BEGIN
 		Select COUNT(id) as [count]
 		From [Notification]
 END
+
+-- Edit Proceduce
+-- 22/4/2021 
+-- Loại bỏ dữ liệu thừa
+GO
+use ManagerApartment;
+GO
+Alter PROC Notidication_GetAll
+AS
+BEGIN
+	SELECT 
+		[Notification].[ID] as ID
+		,[title]
+		,[date_release]
+		,[Admin].[name] as creator
+	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
+	Order by date_release DESC
+END
+
+GO
+Alter PROCEDURE Notification_GetById
+	@id int
+AS
+BEGIN
+	SELECT 
+		[Notification].[ID] as ID
+		,[title]
+		,[date_release]
+		,[Admin].[name] as creator
+	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
+	Where [Notification].[ID] = @id
+END
+GO
+
+Alter PROC Notification_GetByCreatorId
+@creatorId int
+AS
+Begin
+	SELECT 
+		[Notification].[ID] as ID
+		,[title]
+		,[date_release]
+		,[Admin].[name] as creator
+	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
+	Where [Admin].ID = @creatorId
+	Order by date_release DESC
+end
+
+GO
+
+Alter PROCEDURE Notification_GetByRowNumber
+	@start int,
+	@end int
+AS
+BEGIN
+	
+	With work_tmp as (
+		SELECT 
+		ROW_NUMBER() Over (Order by [date_release])  as row#
+		,[Notification].[ID] as ID
+		,[title]
+		,[date_release]
+		,[Admin].[name] as creator
+		FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
+	)
+	Select [ID]
+		,[title]
+		,[date_release]
+		,creator
+	From work_tmp
+	Where row# >= @start and row# < @end
+	Order by date_release DESC
+
+END
+GO
+
+Alter PROC Notification_GetByCreatorIdRowNumber
+@creatorId int,
+@start int,
+@end int
+AS
+Begin
+	WITH work_tmp as (
+		SELECT 
+			ROW_NUMBER() Over (Order by [date_release])  as row#
+			,[Notification].[ID] as ID
+			,[title]
+			,[date_release]
+			,[Admin].[name] as creator
+		FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
+		Where [Admin].ID = @creatorId
+	)
+	Select [ID]
+		,[title]
+		,[date_release]
+		,creator
+	From work_tmp
+	Where row# >= @start and row# < @end
+	Order by date_release DESC
+end
+
+GO

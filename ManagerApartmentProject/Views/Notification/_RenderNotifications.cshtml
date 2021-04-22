@@ -1,0 +1,23 @@
+@using ManagerApartmentProject.Models
+@model IEnumerable<Notification>
+
+@{
+    <ul class="list-notification">
+    @foreach (Notification notify in Model)
+    {
+        <li class="card">
+            <a asp-controller="Notification" asp-action="Detail" asp-route-id="@notify.ID" class="card-body">
+                <h4 class="card-title">@notify.title</h4>
+                <h6 class="card-subtitle text-muted font-italic">[@notify.creator] - @notify.dateRelease.ToString("dd/MM/yyyy")</h6>
+            </a>
+
+            @if ((bool) @ViewData["auth"]){
+                <div class="action-group text-right">
+                    <a asp-controller="Notification" asp-action="Update" asp-route-id="@notify.ID">Update</a>
+                    <a data-toggle="modal" data-target="#modal">Delete</a>
+                </div>
+            }
+        </li>
+    }
+    </ul>
+}

@@ -1,0 +1,97 @@
+.card-header-tabs {
+    padding: 0;
+}
+
+.tab-pane .card {
+    margin: 0.5em 0;
+}
+
+.tab-pane .card a.card-body {
+    padding: 1em 1.8em;
+    transition: 0.3s;
+}
+
+.tab-pane .card a.card-body .card-title {
+    font-size: 1.15em !important;
+    color: blue;
+}
+
+.tab-pane .card a.card-body:hover{
+    font-size: 1.08em;
+    text-decoration: none;
+}
+
+.tab-pane .card a.card-body:hover .card-title {
+    color: rgba(240, 9, 9, 0.8);
+}
+
+.tab-content .tab-pane ul.list-notification{
+    height: 55vh;
+    overflow: auto;
+}
+
+.tab-content .tab-pane ul.list-notification::-webkit-scrollbar{
+    width: 5px;
+}
+
+.tab-content .tab-pane ul.list-notification::-webkit-scrollbar-thumb{
+    background: #e6bfbf;
+    border-radius: 5px;
+}
+
+.tab-content .tab-pane ul.list-notification::-webkit-scrollbar-track{
+    background: transparent !important;
+}
+
+.tab-content .tab-pane ul.list-notification::-webkit-scrollbar-thumb:hover{
+    background-color: rgb(180, 179, 179);
+}
+
+
+.tab-pane-header {
+    height: 5vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.3em 0.4em;
+    width: 10vw;
+    position: absolute;
+    top: 1em;
+    right: 1.4em;
+}
+
+
+.tab-pane-header .btn-default{
+    box-shadow: 0 0 0 0.1px rgba(0,0,0,0.8);
+}
+
+div.action-group {
+    position: absolute;
+    top: 3.22em !important;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px;
+} 
+
+div.action-group a {
+    margin: 0 10px;
+}
+
+div.action-group a:hover {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.card-body:first-child {
+    padding: 0.8em 1.81em !important;
+}
+
+.card .card-header {
+    padding: 0.88rem 0.81rem !important;
+}
+
+.pagination {
+    justify-content: flex-end;
+}

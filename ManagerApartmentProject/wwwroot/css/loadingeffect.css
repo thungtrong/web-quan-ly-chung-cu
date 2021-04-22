@@ -1,0 +1,45 @@
+ul.loading-effect {
+    /* display: flex; */
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    display: none;
+}
+
+ul.loading-effect li {
+    background: blue;
+    height: 10px;
+    width: 4px;
+    margin: 0 4px;
+    list-style: none;
+    text-decoration: none;
+    animation: loading 1s infinite alternate-reverse;
+}
+
+ul.loading-effect li:nth-child(1) {
+    animation-delay: .1s;
+}
+ul.loading-effect li:nth-child(2) {
+    animation-delay: .2s;
+}
+ul.loading-effect li:nth-child(3) {
+    animation-delay: .3s;
+}
+ul.loading-effect li:nth-child(4) {
+    animation-delay: .4s;
+}
+ul.loading-effect li:nth-child(5) {
+    animation-delay: .5s;
+}
+
+@keyframes loading {
+    0% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(3)
+    }
+    100% {
+        transform: scaleY(1)
+    }
+}

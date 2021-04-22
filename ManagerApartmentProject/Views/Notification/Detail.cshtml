@@ -1,0 +1,25 @@
+@using ManagerApartmentProject.Models
+@model Notification
+
+<h2>@Model.title</h2>
+<div class="subtitle text-right text-muted font-italic">
+    [@Model.creator] - @Model.dateRelease.ToString("dd/MM/yyyy")
+</div>
+
+<div class="content">
+    @{
+        string[] rows = @Model.content.Split("\n");
+    }
+    @for (int i = 0; i < rows.Length; i++){
+        <div>@rows[i]</div>
+    }
+</div>
+
+@section Css {
+    <style>
+        div.content div {
+            padding: 0.2em;
+        }
+    </style>
+}
+

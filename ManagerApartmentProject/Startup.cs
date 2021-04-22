@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ManagerApartmentProject.Const;
+using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +26,25 @@ namespace ManagerApartmentProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            
+
+            services.AddSingleton<INotificationRes, NotificationRes>();
+
+            DataProvider.AddInstance(Configuration.GetConnectionString("DefaultConnection"));
+
+            // services.AddAuthentication("CookieAuth")
+            //         .AddCookie(config =>
+            //         {
+            //             config.Cookie.Name = "Auth.Cookie";
+            //             config.LoginPath = "/Home";
+            //             config.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+            //         });
+
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,19 +60,28 @@ namespace ManagerApartmentProject
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
-            app.UseRouting();
+            // Who are you?
+            // app.UseAuthentication();
 
+            // are you allowed?
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            // app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
+                routes.MapRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                    name: "notification",
+                    template: "{controller=Notification}/{action=Index}/{pageAll?}/{pageMy}"
+                );
             });
+
         }
     }
 }

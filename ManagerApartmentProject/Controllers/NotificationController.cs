@@ -13,7 +13,8 @@ namespace ManagerApartmentProject.Controllers
     {
         private readonly INotificationRes _notificationRes;
         private readonly ILogger<NotificationController> _logger;
-        private readonly int _creator;
+        private readonly  int _creator;
+
         // private readonly int _MAXROW;
         public NotificationController(INotificationRes notificationRes, ILogger<NotificationController> logger)
         {
@@ -116,9 +117,17 @@ namespace ManagerApartmentProject.Controllers
             });
         }
 
-        [Route("api/Notification/GetPageAll/{page}")]
+        [Route("Notification/api/GetPageAll/{page}")]
         public async Task<string> GetPageAll(int page)
         {
+            if (page <= 0){
+                return JsonSerializer.Serialize(new
+                {
+                    status = 0,
+                    message = "Page must be greater than zero"
+                });
+            }
+
             List<Notification> lst = await Task.Run(
                 () => _notificationRes.GetByPage(page)
             );
@@ -129,33 +138,43 @@ namespace ManagerApartmentProject.Controllers
 
             string json = JsonSerializer.Serialize(new
             {
-                notification = lst,
-                pagination = new Dictionary<string, int> {
-                    {"start", page},
-                    {"end", Math.Min(page+5, pageCount)}
+                status = 1,
+                notifications = lst,
+                pagination = new {
+                    start = page,
+                    end = Math.Min(pageCount, page + 5)
                 }
             });
 
             return json;
         }
 
-        [Route("api/Notification/GetPageMy/{page}")]
+        [Route("Notification/api/GetPageMy/{page}")]
         public async Task<string> GetPageMy(int page)
-        {
-            List<Notification> lst1 = await Task.Run(
+        {   
+            if (page <= 0){
+                return JsonSerializer.Serialize(new
+                {
+                    status = 0,
+                    message = "Page must be greater than zero"
+                });
+            }
+
+            List<Notification> lst = await Task.Run(
                 () => _notificationRes.GetByCreatorIdPage(_creator, page)
             );
 
-            int pageCount1 = await Task<int>.Run(
+            int pageCount = await Task<int>.Run(
                 () => _notificationRes.GetPageCount(_creator)
             );
 
             string json = JsonSerializer.Serialize(new
             {
-                notification = lst1,
-                pagination = new Dictionary<string, int> {
-                    {"start", page},
-                    {"end", Math.Min(page+5, pageCount1)}
+                status = 1,
+                notifications = lst,
+                pagination = new {
+                    start = page,
+                    end = Math.Min(pageCount, page + 5)
                 }
             });
             return json;

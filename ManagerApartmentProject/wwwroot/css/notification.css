@@ -95,3 +95,12 @@ div.action-group a:hover {
 .pagination {
     justify-content: flex-end;
 }
+
+.disabled-link {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.disabled-link a {
+    color: gray;
+}

@@ -9,9 +9,7 @@ namespace ManagerApartmentProject.Repositories
 {
     public class NotificationRes : INotificationRes
     {
-        private int _MAXROW = 2;
-
-
+        private int _MAXROW = 10;
 
         public bool Create(Notification model, int creatorID)
         {
@@ -77,7 +75,7 @@ namespace ManagerApartmentProject.Repositories
                 page = 1;
             }
             int start = _MAXROW * ((int)page - 1) + 1;
-            int end = start + _MAXROW + 1;
+            int end = start + _MAXROW;
 
             return GetListFrom("Notification_GetByRowNumber", new object[] { start, end });
         }
@@ -90,7 +88,7 @@ namespace ManagerApartmentProject.Repositories
             }
 
             int start = _MAXROW * ((int)page - 1) + 1;
-            int end = start + _MAXROW + 1;
+            int end = start + _MAXROW;
 
             return GetListFrom(
                 "Notification_GetByCreatorIdRowNumber",

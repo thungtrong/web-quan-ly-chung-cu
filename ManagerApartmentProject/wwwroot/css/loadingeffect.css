@@ -1,9 +1,13 @@
 ul.loading-effect {
-    /* display: flex; */
+    display: flex;
     position: absolute;
     top: 50%;
     right: 50%;
     display: none;
+}
+
+.show-flex {
+    display: flex;
 }
 
 ul.loading-effect li {

@@ -4,24 +4,36 @@
     @{
       int start = Model.start - 1;
       int end = Model.end;
+      string disable = "";
+      if (start == 0)
+      {
+        disable = "disabled-link";
+      }
 
-      <li class="page-item">
-        <a class="page-link" href="#" data-page="@start" aria-label="Previous">
+      <li class="page-item control previous @disable">
+        <a class="page-link" href="#" data-page="-1" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      
+
       start += 1;
 
-      <li class="page-item active"><a class="page-link" href="#" data-page="@start">@start</a></li>
+      <li class="page-item number active"><a class="page-link" href="#" data-page="@start">@start</a></li>
 
-      for (start = start + 1; start <= end; start++)
+      int tmp = start;
+      for (int i = 0; i < 4 && tmp < end; i++)
       {
-        <li class="page-item"><a class="page-link" href="#" data-page="@start">@start</a></li>
+        tmp += 1;
+        <li class="page-item number"><a class="page-link" href="#" data-page="@tmp">@tmp</a></li>
       }
+      if (start < end) {
+        disable = "";
+      }
+      start += 1;
     }
-    <li class="page-item">
-      <a class="page-link" href="#" data-page="@start" aria-label="Next">
+
+    <li class="page-item control next" data-page-max="@end">
+      <a class="page-link @disable" href="#" data-page="1" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

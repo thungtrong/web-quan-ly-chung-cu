@@ -1,3 +1,10 @@
+﻿-- =============================================
+-- Author:		Tran Hung Trong
+-- Create date: 16/04/2021
+-- Description:	Khởi tạo các bảng
+-- =============================================
+-- Edit: Thay đổi một số kiểu dữ liệu
+-- Edit time: 21/04/2021
 CREATE DATABASE ManagerApartment;
 go
 
@@ -7,10 +14,10 @@ go
 CREATE TABLE Apartment
 (
 	[ID] int IDENTITY(1, 1),
-	[name] varchar(100) unique,
+	[name] NVARCHAR(100) unique,
 	[floor] int,
 	[status] int,
-	[description] varchar(MAX),
+	[description] nvarchar(MAX),
 	[payment_per_month] int,
 	Constraint PK_Apartment Primary key ([ID])
 );
@@ -19,7 +26,7 @@ go
 Create table Equipment
 (
 	[ID] int IDENTITY(1, 1),
-	[name] varchar(100),
+	[name] NVARCHAR(100),
 	[count] int,
 	[equipment_of] int,
 	Constraint PK_Equipment Primary key ([ID]),
@@ -46,7 +53,7 @@ go
 Create table Tenant
 (
 	[ID] int Identity(1, 1),
-	[name] varchar(100),
+	[name] NVARCHAR(100),
 	[email] varchar(200),
 	[phone_number] varchar(15),
 	[advance_payment] int,
@@ -71,9 +78,9 @@ go
 Create table TenantComplaint
 (
 	[ID] int Identity(1, 1),
-	[title] varchar(100),
+	[title] nvarchar(100),
 	[date_submit] date,
-	[content] varchar(MAX),
+	[content] nvarchar(MAX),
 	complaint_of int,
 	Constraint PK_TenantComplaint Primary key ([ID]),
 	Constraint FK_ID_Tenant_TenantComplaint Foreign key ([complaint_of]) References Tenant([ID]) ON DELETE CASCADE
@@ -97,7 +104,7 @@ go
 Create table DeltailInvoice
 (
 	[ID] int identity(1, 1),
-	[name] varchar(50),
+	[name] NVARCHAR(50),
 	[amount] int,
 	[detail_of] int,
 	Constraint PK_DeltailInvoice Primary key ([ID]),
@@ -109,14 +116,13 @@ go
 Create table Employee
 (
 	[ID] int Identity(1, 1),
-	[name] varchar(100),
+	[name] NVARCHAR(100),
 	[email] varchar(150),
 	[phone_number] varchar(15),
-	[address] varchar(250),
+	[address] nvarchar(250),
 	[join_date] date,
-	[position] varchar(100),
 	[salary] int,
-	[description] varchar(MAX),
+	[description] nvarchar(MAX),
 	Constraint PK_Employee Primary key ([ID]),
 );
 
@@ -135,9 +141,9 @@ go
 Create table EmployeeComplaint
 (
 	[ID] int Identity(1, 1),
-	[title] varchar(100),
+	[title] nvarchar(100),
 	[date_submit] date,
-	[content] varchar(MAX),
+	[content] nvarchar(MAX),
 	[complaint_of] int,
 	Constraint PK_EmployeeComplaint Primary key ([ID]),
 	Constraint FK_ID_Employee_EmployeeComplaint Foreign key ([complaint_of]) References Employee([ID]) ON DELETE CASCADE
@@ -148,7 +154,7 @@ GO
 Create table EmployeeForm
 (
 	[ID] int IDENTITY(1, 1),
-	[form_title] VARCHAR(1000),
+	[form_title] NVARCHAR(1000),
 	[date_submit] date,
 	[status] int,
 	[desciption] VARCHAR(MAX),
@@ -160,7 +166,7 @@ go
 -- Khop ADMIN
 CREATE TABLE [Admin](
 	[ID] int IDENTITY(1, 1),
-	[name] VARCHAR(100),
+	[name] NVARCHAR(100),
 	[email] VARCHAR(200),
 	[phone_number] VARCHAR(15),
 	[authority] int,
@@ -182,9 +188,9 @@ GO
 Create table AdminComplaint
 (
 	[ID] int Identity(1, 1),
-	[title] varchar(100),
+	[title] nvarchar(100),
 	[date_submit] date,
-	[content] varchar(MAX),
+	[content] nvarchar(MAX),
 	[complaint_of] int,
 	Constraint PK_AdminComplaint Primary key ([ID]),
 	Constraint FK_ID_Admin_AdminComplaint Foreign key ([complaint_of]) References [Admin]([ID]) ON DELETE CASCADE
@@ -194,8 +200,8 @@ GO
 
 Create TABLE [Notification](
 	[ID] int IDENTITY(1, 1),
-	[title] VARCHAR(200),
-	[content] VARCHAR(MAX),
+	[title] nvarchar(200),
+	[content] nvarchar(MAX),
 	[date_release] DATE,
 	[creator] int,
 	CONSTRAINT PK_Notification PRIMARY KEY ([ID]),
@@ -206,11 +212,11 @@ GO
 
 Create table [Maintenance](
 	[ID] int IDENTITY(1, 1),
-	[title] VARCHAR(200),
+	[title] nvarchar(200),
 	[date_create] DATE,
 	[amount] int,
 	[status] int,
-	[description] VARCHAR(MAX),
+	[description] nvarchar(MAX),
 	[creator] INT,
 	CONSTRAINT PK_Maintenance PRIMARY KEY ([ID]),
 	CONSTRAINT FK_Admin_Mainteance FOREIGN KEY ([creator]) REFERENCES [Admin]([ID]) ON DELETE CASCADE
@@ -219,11 +225,11 @@ GO
 
 Create TABLE [InvoiceBuilding](
 	[ID] int IDENTITY(1,1),
-	[title] VARCHAR(200),
+	[title] nvarchar(200),
 	[date_create] DATE,
 	[amount] int,
 	[status] int,
-	[description] VARCHAR(MAX),
+	[description] nvarchar(MAX),
 	[creator] INT,
 	CONSTRAINT PK_InvoiceBuilding PRIMARY KEY ([ID]),
 	CONSTRAINT FK_Admin_InvoiceBuilding FOREIGN KEY ([creator]) REFERENCES [Admin]([ID]) ON DELETE CASCADE

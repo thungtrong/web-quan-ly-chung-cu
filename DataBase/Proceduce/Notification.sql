@@ -9,7 +9,7 @@ GO
 -- Alter date: 21/04/2021
 -- Description:	Proceduce cho modul quản lý thông báo
 -- =============================================
-Alter PROCEDURE Notification_Add
+Create PROCEDURE Notification_Add
     @title nvarchar(200),
     @content nvarchar(MAX),
     @date_release date,
@@ -29,7 +29,7 @@ BEGIN
 END
 GO
 
-Alter PROCEDURE Notification_EditByID
+CREATE PROCEDURE Notification_EditByID
 	@ID int,
     @title nvarchar(200),
     @content nvarchar(MAX),
@@ -59,7 +59,7 @@ BEGIN
 END
 
 GO
-Create PROCEDURE Notification_GetById
+CREATE PROCEDURE Notification_GetById
 	@id int
 AS
 BEGIN
@@ -190,19 +190,6 @@ BEGIN
 	Order by date_release DESC
 END
 
-GO
-Alter PROCEDURE Notification_GetById
-	@id int
-AS
-BEGIN
-	SELECT 
-		[Notification].[ID] as ID
-		,[title]
-		,[date_release]
-		,[Admin].[name] as creator
-	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
-	Where [Notification].[ID] = @id
-END
 GO
 
 Alter PROC Notification_GetByCreatorId

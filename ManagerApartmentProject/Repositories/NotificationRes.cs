@@ -9,7 +9,12 @@ namespace ManagerApartmentProject.Repositories
 {
     public class NotificationRes : INotificationRes
     {
-        private int _MAXROW = 10;
+        private int _MAXROW;
+        private Func<DataRow, Notification> _func;
+        public NotificationRes(){
+            _func = (DataRow row) => SQLCommand.Map<Notification>(row);
+            _MAXROW = DataProvider.MAXROW;
+        }
 
         public bool Create(Notification model, int creatorID)
         {
@@ -41,31 +46,22 @@ namespace ManagerApartmentProject.Repositories
         }
 
 
-        private List<Notification> GetListFrom(string proceduceName, object[] values)
-        {
-            DataTable dt = DataProvider.INSTANCE.Select(proceduceName, values);
-            List<Notification> lst = new List<Notification>();
-            if (DataProvider.INSTANCE.errorCode == 0 && dt.Rows.Count > 0)
-            {
-                Notification tmp;
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    tmp = SQLCommand.Map<Notification>(dt.Rows[i]);
-                    lst.Add(tmp);
-                }
-            }
-
-            return lst;
-        }
-
         public List<Notification> GetAll()
         {
-            return GetListFrom("Notification_GetAll", null);
+            return DataProvider.GetListFrom<Notification>(
+                "Notification_GetAll", 
+                null,
+                _func
+            );
         }
 
         public List<Notification> GetByCreatorId(int creatorId)
         {
-            return GetListFrom("Notification_GetByCreatorId", new object[] { creatorId });
+            return DataProvider.GetListFrom<Notification>(
+                "Notification_GetByCreatorId",
+                new object[] { creatorId },
+                _func
+            );
         }
 
         public List<Notification> GetByPage(int? page)
@@ -77,7 +73,11 @@ namespace ManagerApartmentProject.Repositories
             int start = _MAXROW * ((int)page - 1) + 1;
             int end = start + _MAXROW;
 
-            return GetListFrom("Notification_GetByRowNumber", new object[] { start, end });
+            return DataProvider.GetListFrom(
+                "Notification_GetByRowNumber",
+                new object[] { start, end },
+                _func
+            );
         }
 
         public List<Notification> GetByCreatorIdPage(int creatorId, int? page)
@@ -90,21 +90,20 @@ namespace ManagerApartmentProject.Repositories
             int start = _MAXROW * ((int)page - 1) + 1;
             int end = start + _MAXROW;
 
-            return GetListFrom(
+            return DataProvider.GetListFrom<Notification>(
                 "Notification_GetByCreatorIdRowNumber",
-                new object[] { creatorId, start, end }
+                new object[] { creatorId, start, end },
+                _func
             );
         }
 
         public Notification GetById(int id)
         {
-            DataTable dt = DataProvider.INSTANCE.Select("Notification_GetById", new object[] { id });
-            if (DataProvider.INSTANCE.errorCode == 0 && dt.Rows.Count > 0)
-            {
-                return SQLCommand.Map<Notification>(dt.Rows[0]); ;
-            }
-
-            return null;
+            return DataProvider.GetObjectByIdFrom<Notification>(
+                "Notification_GetById",
+                id,
+                _func
+            );
         }
 
         public int GetPageCount(int creatorId)

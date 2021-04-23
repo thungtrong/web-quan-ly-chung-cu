@@ -93,11 +93,13 @@ Create table InvoiceApartment
 	[ID] int Identity(1, 1),
 	[date_release] date,
 	[date_paid] date,
-	[status] bit,
+	[status] int,
 	[invoice_of] int,
 	Constraint PK_InvoiceApartment Primary key ([ID]),
 	Constraint FK_ID_Tenant_InvoiceApartment Foreign key ([invoice_of]) References Tenant([ID]) ON DELETE CASCADE
 );
+go
+
 
 go
 
@@ -150,7 +152,9 @@ Create table EmployeeComplaint
 );
 
 GO
-
+-- status:  0 mới được nộp
+--			1 đang xử lý
+--			2 trả kết quả
 Create table EmployeeForm
 (
 	[ID] int IDENTITY(1, 1),
@@ -210,6 +214,10 @@ Create TABLE [Notification](
 
 GO
 
+-- status: 0 chưa xử lý, mới đệ trình
+--		   1 đang trong quá trình xử lý
+--		   2 đã hoàn thành
+--		   3 đã hoàn thành và chi trả
 Create table [Maintenance](
 	[ID] int IDENTITY(1, 1),
 	[title] nvarchar(200),
@@ -234,3 +242,18 @@ Create TABLE [InvoiceBuilding](
 	CONSTRAINT PK_InvoiceBuilding PRIMARY KEY ([ID]),
 	CONSTRAINT FK_Admin_InvoiceBuilding FOREIGN KEY ([creator]) REFERENCES [Admin]([ID]) ON DELETE CASCADE
 );
+
+-- Edit InvoiceBuilding
+-- Thay doi kieu du lieu cua satus
+GO
+ALTER table [InvoiceBuilding]
+ALTER Column [status] bit
+
+-- Edit InvoiceApartment
+-- Thay đổi kiểu dư liễu của status
+ALTER table InvoiceApartment
+ALTER column [status] bit
+
+-- Edit Apartment
+ALTER table Apartment
+ALTER column [status] bit

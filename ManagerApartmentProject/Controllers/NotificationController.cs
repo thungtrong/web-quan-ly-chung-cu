@@ -67,7 +67,8 @@ namespace ManagerApartmentProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ID,title,content,dateRelease,creator")] Notification model)
         {
-            bool result = await Task<bool>.Run(() => _notificationRes.Create(model, _creator));
+            // _creator;
+            bool result = await Task<bool>.Run(() => _notificationRes.Create(model, 1));
             if (result)
             {
                 return RedirectToAction("Index");

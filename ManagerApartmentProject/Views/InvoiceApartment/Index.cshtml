@@ -1,0 +1,67 @@
+@model IEnumerable<InvoiceApartment>
+
+<a asp-action="Create" class="btn btn-default">Create</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th> @Html.DisplayNameFor((model) => model.ID) </th>
+            <th> @Html.DisplayNameFor((model) => model.dateRelease) </th>
+            <th> @Html.DisplayNameFor((model) => model.datePaid) </th>
+            <th> @Html.DisplayNameFor((model) => model.amount) </th>
+            <th> @Html.DisplayNameFor((model) => model.status) </th>
+            <th> @Html.DisplayNameFor((model) => model.owner) </th>
+            <th> Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model){
+            string tmp = item.status ? "Hoàn thành" : "Đang chờ";
+            <tr>
+                <td> @Html.DisplayFor(model => item.ID) </td>
+                <td> @Html.DisplayFor(model => item.dateRelease) </td>
+                <td> @Html.DisplayFor(model => item.datePaid) </td>
+                <td> @Html.DisplayFor(model => item.amount) </td>
+                <td> @Html.DisplayFor(model => tmp ) </td>
+                <td> @Html.DisplayFor(model => item.owner) </td>
+                <td>
+                    <a asp-controller="InvoiceApartment" asp-action="Detail" asp-route-id="@item.ID" class="btn btn-info btn-sm btn-small">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a asp-controller="InvoiceApartment" asp-action="Update" asp-route-id="@item.ID" class="btn btn-danger btn-sm btn-small">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <a asp-controller="InvoiceApartment" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-warning btn-sm btn-small">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* Khi nhấn nút view thì hiện model hiển thị  *@
+
+@section Css {
+    <link rel="stylesheet" href="~/fontawesome-5.15.3/css/all.css">
+    <style>
+        .btn-small {
+            padding: 0.3rem 0.3em 0.3em 0.5em;
+
+        }
+        tbody {
+            max-height: 55vh;
+            overflow: auto;
+        }
+        tbody ::-webkit-scrollbar{
+            width: 5px;
+        }
+        tbody::-webkit-scrollbar-track{
+            background: transparent !important;
+        }
+
+        tbody::-webkit-scrollbar-thumb:hover{
+            background-color: rgb(180, 179, 179);
+        }
+    </style>
+}

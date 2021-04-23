@@ -7,7 +7,7 @@ namespace ManagerApartmentProject.Models{
         [DisplayName("Title")]
         public string title { get; set; }
         [DisplayName("Date Create")]
-        public DateTime dateCreate { get; set; }
+        public DateTime dateCreate { get; set; } = DateTime.Now;
         [DisplayName("Amount")]
         public int amount { get; set; }
         [DisplayName("Status")]

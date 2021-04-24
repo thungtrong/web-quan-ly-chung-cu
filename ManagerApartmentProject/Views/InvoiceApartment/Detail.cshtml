@@ -1,8 +1,36 @@
 @using ManagerApartmentProject.Models
 @model InvoiceApartmentViewModel
 
+<div>
+    @{
+        ViewData["disabled"] = true;
+    }
+    <h4>Thông tin chung</h4>
+    <div id="invoice">
+        @await Html.PartialAsync(
+            "_InvoiceForm.cshtml",
+            Model.invoice,
+            ViewData
+        )
+    </div>
+    
+    <div id="details">
+        @await Html.PartialAsync(
+            "_DetailInvoiceForm.cshtml",
+            Model.details,
+            ViewData
+        )
+        
+    </div>
 
-@await Html.PartialAsync("_Invoice.cshtml", Model.invoice)
-<h4>Chi tiết hoá đơn</h4>
-@await Html.PartialAsync("_DetailInvoice.cshtml", Model.details)
+    <a class="btn btn-default" asp-controller="InvoiceApartment" asp-action="Index">Back</a>
 
+</div>
+
+@section Scripts {
+<script src="~/js/InvoiceApartment.js"></script>
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/css/invoiceApartment.css">
+}

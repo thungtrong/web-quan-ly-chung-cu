@@ -10,7 +10,7 @@ GO
 -- Description:	Proceduce cho modul quản lý thông báo
 -- =============================================
 
-CREATE PROC InvoiceApartment_Add
+CREATE PROC InvoiceApartment_Create
 @date_release date,
 @date_paid date,
 @status bit,
@@ -27,6 +27,7 @@ BEGIN
 			   @date_paid,
 			   @status,
 			   @invoice_of)
+	SELECT SCOPE_IDENTITY() as [0];
 END
 GO
 CREATE PROC InvoiceApartment_EditById
@@ -68,12 +69,22 @@ GO
 CREATE PROC InvoiceApartment_GetAll
 AS
 BEGIN
+	
+	with work_tmp as (
+		SELECT [detail_of], SUM([amount]) as amount
+		FROM [dbo].[DeltailInvoice]
+		Group BY [detail_of]
+	)
+	
 	SELECT [InvoiceApartment].[ID]
       ,[date_release] as dateRelease
       ,[date_paid] as datePaid
       ,[status]
       ,[Tenant].[name] as [owner]
+	  ,amount
+	  ,[invoice_of] as [invoiceOf]
 	FROM [dbo].[InvoiceApartment] inner join [Tenant] on [invoice_of] = [Tenant].ID
+		Join work_tmp on [InvoiceApartment].[ID] = [detail_of]
 	Order by [date_release] DESC, [InvoiceApartment].[ID]
 END
 
@@ -117,6 +128,7 @@ BEGIN
       ,[date_paid] as datePaid
       ,[status]
       ,[Tenant].[name] as [owner]
+	  ,[invoice_of] as [invoiceOf]
 	FROM [dbo].[InvoiceApartment] inner join [Tenant] on [invoice_of] = [Tenant].ID
 	WHERE [InvoiceApartment].[ID] = @id
 END
@@ -185,3 +197,9 @@ END
 GO
 
 
+Create PROC Tenant_GetIdNameAll
+AS
+BEGIN
+	SELECT ID, name
+	From [Tenant]
+END

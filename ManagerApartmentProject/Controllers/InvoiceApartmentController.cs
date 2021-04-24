@@ -1,8 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text.Json;
+using CAIT.SQLHelper;
+using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace ManagerApartmentProject.Controllers
@@ -33,33 +38,95 @@ namespace ManagerApartmentProject.Controllers
         
         public IActionResult Update(int id)
         {
+            
             InvoiceApartmentViewModel model = _invoiceApartmentRes.GetById(id);
+            ViewBag.Tenants = GetTenantsForSection(model.invoice.invoiceOf);
+            
             return View(model);
         }
 
         [HttpPost]
-        public string Update(int id, InvoiceApartmentViewModel model)
+        public string UpdateConfirm(int id, InvoiceApartmentViewModel model)
         {
-            bool result = _invoiceApartmentRes.UpdateById(id, model);
-            
-            return JsonSerializer.Serialize(new {
-                status = result,
-                message = result ? "Success" : "Error"
-            });
+            return RunApi(
+                id,
+                () => _invoiceApartmentRes.UpdateById(id, model)
+            );
         } 
 
         public IActionResult Create()
         {
+            ViewBag.Tenants = GetTenantsForSection(0);
             return View(new InvoiceApartmentViewModel());
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(int id, InvoiceApartmentViewModel model)
+        /// <summary>
+        /// Lấy ra danh sách Tenant để truyền vào thẻ section
+        /// </summary>
+        /// <returns>SelectList</returns>
+        private SelectList GetTenantsForSection(int selected)
         {
-            return RedirectToAction("Index");
+            var tenants = DataProvider
+                            .GetListFrom<TenantModel>(
+                                "Tenant_GetIdNameAll",
+                                null,
+                                (DataRow row) => SQLCommand.Map<TenantModel>(row)
+                            );
+            return new SelectList(tenants, "ID", "name", selected);
+        }
+        
+        [HttpPost]
+        public string CreateConfirm(int id, InvoiceApartmentViewModel model)
+        {
+            return RunApi(
+                id,
+                () => _invoiceApartmentRes.Create(id, model)
+            );
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (id == 0)
+            {
+                RedirectToAction("Index");
+            }
+            InvoiceApartmentViewModel model = _invoiceApartmentRes.GetById(id);
+            return View(model);
         }
 
         
+        public string DeleteConfirm(int id)
+        {
+            return RunApi(
+                id,
+                () => _invoiceApartmentRes.DeleteById(id)
+            );
+        }
+
+        /// <summary>
+        /// Kiem tra dau vao id phai khac khong.
+        /// Thuc thi func va lay ket qua tra ve
+        /// Ma hoa thanh json string
+        /// </summary>
+        /// <param name="id">ID cua doi tuong</param>
+        /// <param name="func">Ham thuc hien tuong tac voi database</param>
+        /// <returns>json string</returns>
+        private string RunApi(int id, Func<bool> func)
+        {
+            if (id == 0)
+            {
+                return JsonSerializer.Serialize(
+                    new {
+                        status = false,
+                        message = "Error"
+                    });
+            }
+            
+            bool result = func();
+            return JsonSerializer.Serialize(
+                        new {
+                        status = result,
+                        message = result ? "Success" : "Error"
+                    });
+        }
     }
 }

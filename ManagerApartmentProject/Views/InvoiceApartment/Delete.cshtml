@@ -1,35 +1,36 @@
-@model Maintenance
+@using ManagerApartmentProject.Models
+@model InvoiceApartmentViewModel
 
-<form asp-action="Delete" method="post">
-    <input asp-for="ID" type="hidden" />
-    <div class="form-group">
-        <label asp-for="title"></label>
-        <input asp-for="title"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="title" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="amount"></label>
-        <input asp-for="amount"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="amount" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="description"></label>
-        <input asp-for="description"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="dateCreate"></label>
-        <input asp-for="dateCreate"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="dateCreate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="status"></label>
-        <input asp-for="status"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="status" class="text-danger"></span>
+<div>
+    @{
+        ViewData["disabled"] = true;
+    }
+    <h4>Thông tin chung</h4>
+    <div id="invoice">
+        @await Html.PartialAsync(
+            "_InvoiceForm.cshtml",
+            Model.invoice,
+            ViewData
+        )
     </div>
     
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary submit">Delete</button>
-        <button class="btn btn-default" asp-controller="Maintenance" asp-action="Index">Back</button>
+    <div id="details">
+        @await Html.PartialAsync(
+            "_DetailInvoiceForm.cshtml",
+            Model.details,
+            ViewData
+        )
     </div>
-</form>
+    
+    <button class="btn btn-primary" id="submit" data-action="DeleteConfirm" value="save">Save</button>
+    <a class="btn btn-default" asp-controller="InvoiceApartment" asp-action="Index">Back</a>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/InvoiceApartment.js"></script>
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/css/invoiceApartment.css">
+}

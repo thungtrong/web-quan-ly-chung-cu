@@ -1,1 +1,50 @@
 @using ManagerApartmentProject.Models
+@model InvoiceApartmentViewModel
+
+<div>
+    @{
+        ViewData["disabled"] = false;
+        ViewData["hideOwner"] = true;
+    }
+    <h4>Thông tin chung</h4>
+    <div id="invoice">
+        <div class="form-group">
+            <label for="invoiceOf"></label>
+            <select id="invoiceOf" name="invoiceOf" class="form-control" asp-items="ViewBag.Tenants" >
+                <option value="0">Please chooses tenant</option>
+            </select>
+            <span class="text-danger"></span>
+        </div>
+        @await Html.PartialAsync(
+            "_InvoiceForm.cshtml",
+            Model.invoice,
+            ViewData
+        )
+    </div>
+    
+    <div id="details">
+        <div class="relative d-flex">
+            <h4>Chi Tiết Hoá Đơn</h4>
+            <button class="btn btn-default" id="new-detail">
+                Thêm
+            </button>
+        </div>
+        @await Html.PartialAsync(
+            "_DetailInvoiceForm.cshtml",
+            Model.details,
+            ViewData
+        )
+    </div>
+    
+    <button class="btn btn-primary" id="submit" data-action="CreateConfirm" value="save">Save</button>
+    <a class="btn btn-default" asp-controller="InvoiceApartment" asp-action="Index">Back</a>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/InvoiceApartment.js"></script>
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/css/invoiceApartment.css">
+}

@@ -1,9 +1,0 @@
-@model IEnumerable<DetailInvoice>
-
-<dl class="dl-vertical">
-    @foreach (var item in Model)
-    {
-        <dt>@Html.DisplayFor(Model => item.name)</dt>
-        <dd>@Html.DisplayFor(Model => item.amount)</dd>
-    }
-</dl>

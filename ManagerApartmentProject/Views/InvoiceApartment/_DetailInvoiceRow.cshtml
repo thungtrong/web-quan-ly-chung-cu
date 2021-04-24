@@ -1,9 +1,11 @@
 @model DetailInvoice
-
-<div class="form-group">
+@{
+    var disabled = Convert.ToBoolean(ViewData["disabled"]) ? "disabled" : "";
+}
+<div class="form-group detail-invoice">
     <input value="@Model.ID" name="ID" id="ID" hidden />
-    <input class="form-control" asp-for="name" placeholder="Name" />
-    <input class="form-control" asp-for="amount" placeholder="Amount"/>
+    <input class="form-control @disabled" asp-for="name" placeholder="Name" />
+    <input class="form-control @disabled" asp-for="amount" placeholder="Amount"/>
     <span asp-validation-for="name" class="text-danger"></span>
     <span asp-validation-for="amount" class="text-danger"></span>
 </div>

@@ -1,8 +1,23 @@
 @model IEnumerable<DetailInvoice>
 
-<div>
-    @foreach (var item in Model)
+@{
+    if (Model == (null))
     {
-        @await Html.PartialAsync("_DetailInvoiceRow.cshtml", item)
+        @await Html.PartialAsync(
+            "_DetailInvoiceRow.cshtml",
+            new DetailInvoice(),
+            ViewData
+        )
     }
-</div>
+    else
+    {
+        @for (var i = 0; i < Model.Count<DetailInvoice>(); i++)
+        {
+            @await Html.PartialAsync(
+                "_DetailInvoiceRow.cshtml",
+                Model.ElementAt(i),
+                ViewData
+            )
+        }
+    }
+}

@@ -54,6 +54,7 @@ BEGIN
 			   (@name,
 			   @amount,
 			   @detail_of)
+	
 END
 
 GO

@@ -1,0 +1,36 @@
+.form-group.detail-invoice {
+    display: flex;
+}
+
+.form-group.detail-invoice #name {
+    font-weight: 500;
+    width: 20em;
+}
+
+.card .card-body{
+    width: 50vw;
+    align-self: center;
+}
+
+.disabled {
+    pointer-events: none;
+    background: #e9ecef;
+}
+
+.relative {
+    position: relative;
+}
+.d-flex{
+    display: flex;
+}
+#new-detail {
+    align-self: center;
+    position: absolute;
+    right: 0;
+    box-shadow: 0 0 0 0.2px;
+}
+
+button#new-detail:hover {
+    background: blue;
+    color: white;
+}

@@ -9,19 +9,25 @@ namespace ManagerApartmentProject.Models
     {
         [DisplayName("ID")]
         public int ID { get; set; } = default(int);
-        [DisplayName("Title")]
+        [DisplayName("id")]
         [DefaultValueAttribute("Đã xảy ra lỗi!")]
-        public string title { get; set; }
-        [DisplayName("Amount")]
-        public int amount { get; set; } = default(int);
-        [DisplayName("Create Time")]
+        public string name { get; set; }
+        [DisplayName("Name")]
+        public string email { get; set; }
+        [DisplayName("Email")]
         
-        public DateTime dateCreate { get; set; } = DateTime.Now;
-        [DisplayName("Status")]
+        public string phoneNumber { get; set; }
+        [DisplayName("Phone Number")]
+        public int advancePayment { get; set; }
+        [DisplayName("Advance Payment")]
+        public int paymentPerMonth { get; set; }
+        [DisplayName("Payment Per Month")]
+
         public int status { get; set; }
-        [DisplayName("Description")]
-        public string description { get; set; }
-        [DisplayName("Creator")]
+        [DisplayName("Status")]
+
+        public string unitNo { get; set; }
+        [DisplayName("Unit No")]
         public string creator { get; set; }
 
     }

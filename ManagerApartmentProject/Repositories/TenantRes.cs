@@ -14,14 +14,17 @@ namespace ManagerApartmentProject.Repositories{
             _func = (DataRow row) => SQLCommand.Map<Tenant>(row);
         }
 
-        public bool Create(Tenant maintenance, int creatorID)
+        public bool Create(Tenant tenant, int creatorID)
         {
             object[] values = {
-                maintenance.title,
-                maintenance.dateCreate,
-                maintenance.amount,
-                maintenance.status,
-                maintenance.description,
+                tenant.ID,
+                tenant.name,
+                tenant.email,
+                tenant.phoneNumber,
+                tenant.advancePayment,
+                tenant.paymentPerMonth,
+                tenant.status,
+                tenant.unitNo,
                 creatorID
             };
             return DataProvider.INSTANCE.ExecuteData("Tenant_Add", values);
@@ -32,15 +35,18 @@ namespace ManagerApartmentProject.Repositories{
             return DataProvider.INSTANCE.ExecuteData("Tenant_DeleteById", new object[] {id});
         }
 
-        public bool EditById(int id, Tenant maintenance)
+        public bool EditById(int id, Tenant tenant)
         {
             object[] values = {
                 id,
-                maintenance.title,
-                maintenance.dateCreate,
-                maintenance.amount,
-                maintenance.status,
-                maintenance.description
+                
+                tenant.name,
+                tenant.email,
+                tenant.phoneNumber,
+                tenant.advancePayment,
+                tenant.paymentPerMonth,
+                tenant.status,
+                tenant.unitNo,
             };
             return DataProvider.INSTANCE.ExecuteData("Tenant_EditById", values);
         }

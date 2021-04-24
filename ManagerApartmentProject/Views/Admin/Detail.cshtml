@@ -1,0 +1,41 @@
+@using System.Reflection
+@using Microsoft.Extensions.Logging
+@using ManagerApartmentProject.Controllers
+@model Admin
+@inject ILogger<AdminController> _logger
+
+
+@* @await Html.PartialAsync("_Form.cshtml", new {model = Model, disabled=true}) *@
+<form>
+    <div class="form-group">
+        <label asp-for="title"></label>
+        <input asp-for="title"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="amount"></label>
+        <input asp-for="amount"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="description"></label>
+        <input asp-for="description"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="dateCreate"></label>
+        <input asp-for="dateCreate"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="dateCreate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="status"></label>
+        <input asp-for="status"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="status" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <a type="submit" class="btn btn-primary submit">Save</a>
+        <button class="btn btn-default" asp-controller="Admin" asp-action="Index">Back</button>
+    </div>
+    <button class="btn btn-primary"asp-controller="Admin" asp-action="Index">Back</button>
+</form>

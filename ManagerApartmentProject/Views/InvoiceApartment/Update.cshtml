@@ -1,2 +1,20 @@
 @using ManagerApartmentProject.Models
-@model Notification
+@model InvoiceApartmentViewModel
+
+<div>    
+    <div id="invoice">
+        @await Html.PartialAsync("_InvoiceForm.cshtml", Model.invoice)
+    </div>
+    <h4>Chi tiết hoá đơn</h4>
+    <div id="details">
+        @await Html.PartialAsync("_DetailInvoiceForm.cshtml", Model.details)
+    </div>
+    
+    <button class="btn btn-primary submit" value="save">Save</button>
+    <button class="btn btn-default" asp-controller="Maintenance" asp-action="Index">Back</button>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/InvoiceApartment.js"></script>
+}

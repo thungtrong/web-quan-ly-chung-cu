@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerApartmentProject.Models
@@ -6,7 +7,9 @@ namespace ManagerApartmentProject.Models
     public class DetailInvoice
     {
         public int ID { get; set; }
+        [DisplayName("Name")]
         public string name { get; set; }
+        [DisplayName("Amount")]
         public int amount { get; set; }
 
     }

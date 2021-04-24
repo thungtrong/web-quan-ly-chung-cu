@@ -30,6 +30,23 @@ namespace ManagerApartmentProject.Controllers
             InvoiceApartmentViewModel model = _invoiceApartmentRes.GetById(id);
             return View(model);
         }
+        
+        public IActionResult Update(int id)
+        {
+            InvoiceApartmentViewModel model = _invoiceApartmentRes.GetById(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public string Update(int id, InvoiceApartmentViewModel model)
+        {
+            bool result = _invoiceApartmentRes.UpdateById(id, model);
+            
+            return JsonSerializer.Serialize(new {
+                status = result,
+                message = result ? "Success" : "Error"
+            });
+        } 
 
         public IActionResult Create()
         {

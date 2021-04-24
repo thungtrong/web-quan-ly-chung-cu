@@ -22,10 +22,13 @@
     <link rel="stylesheet" href="~/assets/css/demo_1/style.css">
     @await RenderSectionAsync("Css", required: false);
     <link rel="stylesheet" href="~/css/loadingeffect.css">
-
+    <link rel="stylesheet" href="~/fontawesome-5.15.3/css/all.css">
     <style>
         .page-body-wrapper {
             padding-top: 5vh !important;
+        }
+        .nav-link::before {
+            display: none !important;
         }
     </style>
     <!-- endinject -->

@@ -7,5 +7,6 @@ namespace ManagerApartmentProject.Repositories
     {
         List<InvoiceApartment> GetAll();
         InvoiceApartmentViewModel GetById(int id);
+        bool UpdateById(int id, InvoiceApartmentViewModel model);
     }
 }

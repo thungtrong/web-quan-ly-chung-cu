@@ -47,5 +47,36 @@ namespace ManagerApartmentProject.Repositories{
             }
             return new InvoiceApartmentViewModel{invoice = invoice, details = details};
         }
+
+        public bool UpdateById(int id, InvoiceApartmentViewModel model)
+        {
+            object[] values = {
+                model.invoice.ID,
+                model.invoice.dateRelease,
+                model.invoice.datePaid,
+                model.invoice.status,
+            };
+            bool result = DataProvider.INSTANCE.ExecuteData("InvoiceApartment_EditById", values);
+            
+            object[] values1 = new object[] {
+                0,
+                0,
+                0
+            };
+            foreach (var detail in model.details)
+            {
+                values1[0] = detail.ID;
+                values1[1] = detail.name;
+                values1[2] = detail.amount;
+                
+                if (detail.ID != 0 ){
+                    result = result && DataProvider.INSTANCE.ExecuteData("DetailInvoice_EditById", values1);
+                } else {
+                    values1[0] = model.invoice.ID;
+                    result = result && DataProvider.INSTANCE.ExecuteData("DetailInvoice_Create", values1);
+                }
+            }
+            return result;
+        }
     }
 }

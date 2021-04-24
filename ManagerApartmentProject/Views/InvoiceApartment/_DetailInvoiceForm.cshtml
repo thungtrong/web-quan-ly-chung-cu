@@ -1,0 +1,8 @@
+@model IEnumerable<DetailInvoice>
+
+<div>
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_DetailInvoiceRow.cshtml", item)
+    }
+</div>

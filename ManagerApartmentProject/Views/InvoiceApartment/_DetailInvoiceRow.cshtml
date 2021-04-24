@@ -1,0 +1,9 @@
+@model DetailInvoice
+
+<div class="form-group">
+    <input value="@Model.ID" name="ID" id="ID" hidden />
+    <input class="form-control" asp-for="name" placeholder="Name" />
+    <input class="form-control" asp-for="amount" placeholder="Amount"/>
+    <span asp-validation-for="name" class="text-danger"></span>
+    <span asp-validation-for="amount" class="text-danger"></span>
+</div>

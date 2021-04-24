@@ -33,15 +33,13 @@ CREATE PROC InvoiceApartment_EditById
 @id int,
 @date_release date,
 @date_paid date,
-@status bit,
-@invoice_of int
+@status bit
 AS
 BEGIN
 	UPDATE [dbo].[InvoiceApartment]
 	   SET [date_release] = @date_release
 		  ,[date_paid] = @date_paid
 		  ,[status] = @status
-		  ,[invoice_of] = @invoice_of
 	 WHERE [ID] = @id
 END
 

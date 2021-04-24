@@ -6,10 +6,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Trần Hưng Trọng	
--- Alter date: 21/04/2021
+-- ALTER date: 21/04/2021
 -- Description:	Proceduce cho modul quản lý thông báo
 -- =============================================
-Create PROCEDURE Notification_Add
+CREATE PROC Notification_Add
     @title nvarchar(200),
     @content nvarchar(MAX),
     @date_release date,
@@ -29,7 +29,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE Notification_EditByID
+Create PROC Notification_EditByID
 	@ID int,
     @title nvarchar(200),
     @content nvarchar(MAX),
@@ -59,7 +59,7 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE Notification_GetById
+Create PROC Notification_GetById
 	@id int
 AS
 BEGIN
@@ -91,7 +91,7 @@ end
 
 GO
 
-CREATE PROCEDURE Notification_GetByRowNumber
+CREATE PROC Notification_GetByRowNumber
 	@start int,
 	@end int
 AS
@@ -178,7 +178,7 @@ END
 GO
 use ManagerApartment;
 GO
-Alter PROC Notidication_GetAll
+ALTER PROC Notidication_GetAll
 AS
 BEGIN
 	SELECT 
@@ -191,8 +191,22 @@ BEGIN
 END
 
 GO
+ALTER PROC Notification_GetById
+	@id int
+AS
+BEGIN
+	SELECT 
+		[Notification].[ID] as ID
+		,[content]
+		,[title]
+		,[date_release]
+		,[Admin].[name] as creator
+	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
+	Where [Notification].[ID] = @id
+END
+GO
 
-Alter PROC Notification_GetByCreatorId
+ALTER PROC Notification_GetByCreatorId
 @creatorId int
 AS
 Begin
@@ -208,7 +222,7 @@ end
 
 GO
 
-Alter PROCEDURE Notification_GetByRowNumber
+ALTER PROC Notification_GetByRowNumber
 	@start int,
 	@end int
 AS
@@ -234,7 +248,7 @@ BEGIN
 END
 GO
 
-Alter PROC Notification_GetByCreatorIdRowNumber
+ALTER PROC Notification_GetByCreatorIdRowNumber
 @creatorId int,
 @start int,
 @end int

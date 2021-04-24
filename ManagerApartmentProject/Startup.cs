@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,19 +27,39 @@ namespace ManagerApartmentProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddSession();
 
+            // Cau hinh phan quyen
+            services.AddAuthentication("AuthCookie")
+                    .AddCookie("AuthCookie", config =>
+                    {  
+                        config.Cookie.Name = "Auth.Cookie";
+                        config.LoginPath = "/Home/Login";
+                        config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                    });
+
+            services.AddAuthorization(config =>
+            {
+                // Add policy
+                config.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                // config.AddPolicy()
+            });
+            // End Cau hinh phan quyen
+
+            // Add service for Respositories
             services.AddSingleton<INotificationRes, NotificationRes>();
-
+            services.AddTransient<IMaintenanceRes, MaintenanceRes>();
+            services.AddTransient<IInvoiceBuildingRes, InvoiceBuildingRes>();
+            services.AddTransient<IInvoiceApartmentRes, InvoiceApartmentRes>();
+            services.AddTransient<IEmployeeRes, EmployeeRes>(); 
+            services.AddTransient<IAdminRes, AdminRes>(); 
+            services.AddTransient<ITenantRes, TenantRes>(); 
+            //  End add service for Respositories
             DataProvider.AddInstance(Configuration.GetConnectionString("DefaultConnection"));
 
-            // services.AddAuthentication("CookieAuth")
-            //         .AddCookie(config =>
-            //         {
-            //             config.Cookie.Name = "Auth.Cookie";
-            //             config.LoginPath = "/Home";
-            //             config.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-            //         });
+            
 
             services.AddMvc(options =>
             {
@@ -61,13 +82,15 @@ namespace ManagerApartmentProject
                 app.UseHsts();
             }
 
-            // Who are you?
-            // app.UseAuthentication();
 
+            app.UseHttpsRedirection();
+
+            // Who are you?
+            // app.UseSession();
+            app.UseAuthentication();
             // are you allowed?
             app.UseAuthorization();
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             // app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>

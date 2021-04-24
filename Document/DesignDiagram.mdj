@@ -88103,7 +88103,7 @@
 									"top": 1005,
 									"width": 197.654296875,
 									"height": 13,
-									"text": "hoa_don_toa_nha"
+									"text": "InvoiceBuilding"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -90191,7 +90191,7 @@
 					"_parent": {
 						"$ref": "AAAAAAF4wYaldPDlrPg="
 					},
-					"name": "hoa_don_toa_nha",
+					"name": "InvoiceBuilding",
 					"columns": [
 						{
 							"_type": "ERDColumn",

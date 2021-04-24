@@ -1,0 +1,56 @@
+@model Employee
+
+<form asp-action="Delete" method="post">
+    <input asp-for="ID" type="hidden" />
+    <div class="form-group">
+        <label asp-for="name"></label>
+        <input asp-for="name" class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="address"></label>
+        <input asp-for="address"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="email"></label>
+        <input asp-for="email"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="phoneNumber"></label>
+        <input asp-for="phoneNumber"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="phoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="salary"></label>
+        <input asp-for="salary"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="salary" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="join_date"></label>
+        <input asp-for="join_date"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="join_date" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="position"></label>
+        <input asp-for="position"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="position" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="description"></label>
+        <input asp-for="description"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="description" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary submit">Delete</button>
+        <button class="btn btn-default" asp-controller="Maintenance" asp-action="Index">Back</button>
+    </div>
+</form>

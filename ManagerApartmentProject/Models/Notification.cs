@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerApartmentProject.Models{
+    [Bind("ID,title,content,dateRelease,creator")]
     public class Notification {
         [DisplayName("ID")]
         public int ID { get; set; }

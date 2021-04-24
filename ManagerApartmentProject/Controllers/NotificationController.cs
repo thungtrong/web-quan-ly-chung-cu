@@ -13,20 +13,20 @@ namespace ManagerApartmentProject.Controllers
     {
         private readonly INotificationRes _notificationRes;
         private readonly ILogger<NotificationController> _logger;
-        private readonly  int _creator;
-
         // private readonly int _MAXROW;
         public NotificationController(INotificationRes notificationRes, ILogger<NotificationController> logger)
         {
             _notificationRes = notificationRes;
             _logger = logger;
-            _creator = 1; //int.Parse(Request.Cookies["id"]);
+            
             // _MAXROW = 10;
         }
 
         [HttpGet("[controller]/[action]/{pageAll?}/{pageMy?}")]
         public async Task<IActionResult> Index(int? pageAll, int? pageMy)
         {
+            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
+
             if (pageAll == null)
             {
                 pageAll = 1;
@@ -65,10 +65,11 @@ namespace ManagerApartmentProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("ID,title,content,dateRelease,creator")] Notification model)
+        public async Task<IActionResult> Create(Notification model)
         {
-            // _creator;
-            bool result = await Task<bool>.Run(() => _notificationRes.Create(model, 1));
+            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
+            
+            bool result = await Task<bool>.Run(() => _notificationRes.Create(model, _creator));
             if (result)
             {
                 return RedirectToAction("Index");
@@ -78,13 +79,15 @@ namespace ManagerApartmentProject.Controllers
 
         public async Task<IActionResult> Update(int Id)
         {
+            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
+            
             var model = await Task<Notification>.Run(() => _notificationRes.GetById(Id));
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int id, [Bind("ID,title,content,dateRelease,creator")] Notification model)
+        public async Task<IActionResult> Update(int id, Notification model)
         {
             if (id == model.ID)
             {
@@ -121,6 +124,7 @@ namespace ManagerApartmentProject.Controllers
         [Route("Notification/api/GetPageAll/{page}")]
         public async Task<string> GetPageAll(int page)
         {
+            
             if (page <= 0){
                 return JsonSerializer.Serialize(new
                 {
@@ -153,6 +157,8 @@ namespace ManagerApartmentProject.Controllers
         [Route("Notification/api/GetPageMy/{page}")]
         public async Task<string> GetPageMy(int page)
         {   
+            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
+            
             if (page <= 0){
                 return JsonSerializer.Serialize(new
                 {

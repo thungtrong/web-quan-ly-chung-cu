@@ -1,0 +1,38 @@
+@using Microsoft.Extensions.Logging
+@using ManagerApartmentProject.Controllers
+@model InvoiceBuilding
+@inject ILogger<InvoiceBuildingController> _logger
+
+<form>
+    <div class="form-group">
+        <label asp-for="title"></label>
+        <input asp-for="title"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="amount"></label>
+        <input asp-for="amount"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="description"></label>
+        <input asp-for="description"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="dateCreate"></label>
+        <input asp-for="dateCreate"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="dateCreate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input asp-for="status" /> Hoàn thành
+            </label>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-default" asp-controller="InvoiceBuilding" asp-action="Index">Back</button>
+    </div>
+</form>

@@ -1,3 +1,8 @@
 @using ManagerApartmentProject.Models
+@model InvoiceApartmentViewModel
 
+
+@await Html.PartialAsync("_Invoice.cshtml", Model.invoice)
+<h4>Chi tiết hoá đơn</h4>
+@await Html.PartialAsync("_DetailInvoice.cshtml", Model.details)
 

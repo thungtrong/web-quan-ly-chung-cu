@@ -1,0 +1,30 @@
+@model InvoiceApartment
+
+<input asp-for="ID" hidden />
+@* <div class="form-group">
+    <label asp-for="owner"></label>
+    <input asp-for="owner"  class="form-control"  placeholder="Nhập tiêu đề">
+    <span asp-validation-for="owner" class="text-danger"></span>
+</div> *@
+<div class="form-group">
+    <label asp-for="dateRelease"></label>
+    <input asp-for="dateRelease" class="form-control"  placeholder="Nhập tiêu đề">
+    <span asp-validation-for="dateRelease" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="datePaid"></label>
+    <input asp-for="datePaid" class="form-control"  placeholder="Nhập tiêu đề">
+    <span asp-validation-for="datePaid" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input asp-for="status" /> Đã thanh toán
+        </label>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="amount"></label>
+    <input asp-for="amount" class="form-control"  placeholder="Nhập tiêu đề">
+    <span asp-validation-for="amount" class="text-danger"></span>
+</div>

@@ -1,9 +1,7 @@
-@using Microsoft.Extensions.Logging
-@using ManagerApartmentProject.Controllers
-@model InvoiceBuilding
-@inject ILogger<InvoiceBuildingController> _logger
+@model Maintenance
 
-<form>
+<form asp-action="Delete" method="post">
+    <input asp-for="ID" type="hidden" />
     <div class="form-group">
         <label asp-for="title"></label>
         <input asp-for="title"  class="form-control" disabled placeholder="Nhập tiêu đề">
@@ -25,15 +23,13 @@
         <span asp-validation-for="dateCreate" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <div class="checkbox">
-            <label>
-                <input asp-for="status" /> Hoàn thành
-            </label>
-        </div>
+        <label asp-for="status"></label>
+        <input asp-for="status"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="status" class="text-danger"></span>
     </div>
     
     <div class="form-group">
-        
-        <button class="btn btn-default" asp-controller="InvoiceBuilding" asp-action="Index">Back</button>
+        <button type="submit" class="btn btn-primary submit">Delete</button>
+        <button class="btn btn-default" asp-controller="Maintenance" asp-action="Index">Back</button>
     </div>
 </form>

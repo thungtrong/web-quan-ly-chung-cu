@@ -41,8 +41,7 @@ CREATE PROC InvoiceBuilding_EditById
 @date_create date,
 @amount int,
 @status bit,
-@description nvarchar(max),
-@creator int
+@description nvarchar(max)
 AS
 BEGIN
 
@@ -52,7 +51,6 @@ BEGIN
 		  ,[amount] = @amount
 		  ,[status] = @status
 		  ,[description] = @description
-		  ,[creator] = @creator
 	 WHERE [ID] = @id
 END
 

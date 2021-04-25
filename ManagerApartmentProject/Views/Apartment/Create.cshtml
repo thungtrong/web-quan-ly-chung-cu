@@ -1,4 +1,10 @@
+@using ManagerApartmentProject.Repositories
+@inject IFloorRes _floorRes;
 @model Apartment
+
+@{
+    var floors = new SelectList(_floorRes.GetAll(), "ID", "name");
+}
 
 <form method="post" asp-action="Create">
     <div class="form-group">
@@ -8,8 +14,10 @@
     </div>
     <div class="form-group">
         <label asp-for="floor"></label>
-        <input asp-for="floor"  class="form-control">
-        <span asp-validation-for="floor" class="text-danger"></span>
+        <select asp-for="floor" class="form-control" asp-items="floors" >
+            <option value="0">Please chooses tenant</option>
+        </select>
+        <span class="text-danger"></span>
     </div>
     <div class="form-group">
         <div class="checkbox">

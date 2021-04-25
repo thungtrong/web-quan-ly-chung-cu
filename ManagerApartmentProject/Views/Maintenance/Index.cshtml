@@ -4,7 +4,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th> @Html.DisplayNameFor((model) => model.ID) </th>
+            
             <th> @Html.DisplayNameFor((model) => model.title) </th>
             <th> @Html.DisplayNameFor((model) => model.amount) </th>
             <th> @Html.DisplayNameFor((model) => model.dateCreate) </th>
@@ -19,7 +19,7 @@
         }
         @foreach (var item in Model){
             <tr>
-                <td> @Html.DisplayFor(model => item.ID) </td>
+                
                 <td> @Html.DisplayFor(model => item.title) </td>
                 <td> @Html.DisplayFor(model => item.amount) </td>
                 <td> @Html.DisplayFor(model => item.dateCreate) </td>

@@ -6,11 +6,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Trần Hưng Trọng	
--- CREATE date: 22/04/2021
+-- ALTER date: 22/04/2021
 -- Description:	Proceduce cho modul quản lý chi phí bảo trì
 -- =============================================
 
-CREATE PROC Maintenance_Add
+ALTER PROC Maintenance_Add
 @title nvarchar(200),
 @date_create date,
 @amount int,
@@ -37,7 +37,7 @@ BEGIN
 END
 GO
 
-CREATE PROC Maintenance_EditById
+ALTER PROC Maintenance_EditById
 @id int,
 @title nvarchar(200),
 @date_create date,
@@ -55,7 +55,7 @@ BEGIN
 	 WHERE [Maintenance].[ID] = @id
 END
 GO
-CREATE PROC Maintenance_EditStatusById
+ALTER PROC Maintenance_EditStatusById
 @id int,
 @status int
 AS
@@ -66,7 +66,7 @@ BEGIN
 END
 GO
 
-CREATE PROC Maintenance_DeleteById
+ALTER PROC Maintenance_DeleteById
 @id int
 AS
 BEGIN
@@ -75,12 +75,12 @@ BEGIN
 END
 
 GO
-CREATE PROC Maintenance_GetAll
+ALTER PROC Maintenance_GetAll
 AS
 BEGIN
 	SELECT [Maintenance].[ID]
 		  ,[title]
-		  ,[date_create] as [dateCreate]
+		  ,[date_create] as [dateALTER]
 		  ,[amount]
 		  ,[status]
 		  ,[description]
@@ -91,13 +91,13 @@ BEGIN
 END
 GO
 
-CREATE PROC Maintenance_GetById
+ALTER PROC Maintenance_GetById
 @id int
 AS
 BEGIN
 	SELECT [Maintenance].[ID]
 		  ,[title]
-		  ,[date_create] as [dateCreate]
+		  ,[date_create] as [dateALTER]
 		  ,[amount]
 		  ,[status]
 		  ,[description]
@@ -107,7 +107,7 @@ BEGIN
     WHERE [Maintenance].[ID] = @id
 END
 GO
-CREATE PROC Maintenance_GetByRowNum
+ALTER PROC Maintenance_GetByRowNum
 @start int,
 @end int
 AS 
@@ -128,7 +128,7 @@ BEGIN
 	SELECT 
 		[ID]
 		,[title]
-		,[date_create] as [dateCreate]
+		,[date_create] as [dateALTER]
 		,[amount]
 		,[status]
 		,[description]
@@ -138,7 +138,7 @@ BEGIN
 END
 
 GO
-CREATE PROC Maintenance_GetRowCount
+ALTER PROC Maintenance_GetRowCount
 AS
 BEGIN
 	SELECT COUNT([ID]) as [count]

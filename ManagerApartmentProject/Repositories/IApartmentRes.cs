@@ -10,6 +10,6 @@ namespace ManagerApartmentProject.Repositories
         public bool Insert(Apartment apartment);
         public bool DeleteById(int id);
         public bool UpdateById(int id, Apartment apartment);
-
+        public List<ApartmentModel> GetIdNameAll();
     }
 }

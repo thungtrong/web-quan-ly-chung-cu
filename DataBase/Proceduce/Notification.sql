@@ -9,7 +9,7 @@ GO
 -- ALTER date: 21/04/2021
 -- Description:	Proceduce cho modul quản lý thông báo
 -- =============================================
-CREATE PROC Notification_Add
+ALTER PROC Notification_Add
     @title nvarchar(200),
     @content nvarchar(MAX),
     @date_release date,
@@ -29,7 +29,7 @@ BEGIN
 END
 GO
 
-Create PROC Notification_EditByID
+ALTER PROC Notification_EditByID
 	@ID int,
     @title nvarchar(200),
     @content nvarchar(MAX),
@@ -45,7 +45,7 @@ BEGIN
 END
 GO
 
-CREATE PROC Notidication_GetAll
+ALTER PROC Notidication_GetAll
 AS
 BEGIN
 	SELECT 
@@ -59,7 +59,7 @@ BEGIN
 END
 
 GO
-Create PROC Notification_GetById
+ALTER PROC Notification_GetById
 	@id int
 AS
 BEGIN
@@ -74,7 +74,7 @@ BEGIN
 END
 GO
 
-CREATE PROC Notification_GetByCreatorId
+ALTER PROC Notification_GetByCreatorId
 @creatorId int
 AS
 Begin
@@ -91,7 +91,7 @@ end
 
 GO
 
-CREATE PROC Notification_GetByRowNumber
+ALTER PROC Notification_GetByRowNumber
 	@start int,
 	@end int
 AS
@@ -118,7 +118,7 @@ BEGIN
 END
 GO
 
-CREATE PROC Notification_GetByCreatorIdRowNumber
+ALTER PROC Notification_GetByCreatorIdRowNumber
 @creatorId int,
 @start int,
 @end int
@@ -147,7 +147,7 @@ end
 
 GO
 
-CREATE PROC Notification_DeleteByID
+ALTER PROC Notification_DeleteByID
 @id int
 AS
 BEGIN
@@ -159,7 +159,7 @@ GO
 
 -- Proceduce đếm số dòng trong bảng table
 -- Nếu creator > 0  thì sẽ đếm số thông báo do creator tạo
-CREATE PROC Notification_GetRowCount
+ALTER PROC Notification_GetRowCount
 @creatorId int
 AS
 BEGIN

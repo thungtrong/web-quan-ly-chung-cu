@@ -32,6 +32,7 @@ namespace ManagerAparmentProject.Controllers
         // GET: Equipment/Create
         public IActionResult Create()
         {
+            
             var apartment = new Equipment();
             return View(apartment);
         }

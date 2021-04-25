@@ -122,7 +122,7 @@ Create table Employee
 	[email] varchar(150),
 	[phone_number] varchar(15),
 	[address] nvarchar(250),
-	[join_date] date,
+	[joinDate] date,
 	[salary] int,
 	[description] nvarchar(MAX),
 	Constraint PK_Employee Primary key ([ID]),

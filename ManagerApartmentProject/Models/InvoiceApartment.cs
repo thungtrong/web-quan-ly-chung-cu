@@ -18,5 +18,6 @@ namespace ManagerApartmentProject.Models{
         public int amount { get; set; } = 0;
         [DisplayName("Tenant")]
         public int invoiceOf { get; set; }
+
     }
 }

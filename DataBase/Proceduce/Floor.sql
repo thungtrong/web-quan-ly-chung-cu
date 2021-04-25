@@ -17,7 +17,7 @@ BEGIN
 END
 GO
 
-Create PROCEDURE Floor_GetById
+CREATE PROCEDURE Floor_GetById
 	@id int
 AS
 BEGIN
@@ -27,7 +27,7 @@ BEGIN
 END
 GO
 
-Create PROCEDURE Floor_Insert
+CREATE PROCEDURE Floor_Insert
 	@name nvarchar(10),
 	@description nvarchar(max)
 AS
@@ -50,7 +50,7 @@ BEGIN
 END
 GO
 
-Create PROCEDURE Floor_EditByID
+CREATE PROCEDURE Floor_EditByID
 	@id int,
     @name nvarchar(10),
     @description nvarchar(MAX)

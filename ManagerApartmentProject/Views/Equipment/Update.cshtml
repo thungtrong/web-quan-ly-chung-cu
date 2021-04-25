@@ -1,5 +1,9 @@
 @model Equipment
-
+@using ManagerApartmentProject.Repositories
+@inject IApartmentRes _apartmentRes;
+@{
+    var apartments = new SelectList(_apartmentRes.GetIdNameAll(), "ID", "name");
+}
 <form method="post" asp-action="Update" >
     <input asp-for="ID" hidden />
     
@@ -15,7 +19,9 @@
     </div>
     <div class="form-group">
         <label asp-for="equipmentOf"></label>
-        <input asp-for="equipmentOf" class="form-control" placeholder="Nhập tiêu đề">
+        <select asp-for="equipmentOf"  class="form-control" asp-items="apartments">
+            <option value="0">Please chooses apartment</option>
+        </select>
         <span asp-validation-for="equipmentOf" class="text-danger"></span>
     </div>
     

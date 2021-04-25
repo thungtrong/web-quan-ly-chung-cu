@@ -4,8 +4,8 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th> @Html.DisplayNameFor((model) => model.dateRelease) </th>
-            <th> @Html.DisplayNameFor((model) => model.datePaid) </th>
+            <th> @Html.DisplayNameFor((model) => model.dateRelease.ToString("dd/MM/yyyy")) </th>
+            <th> @Html.DisplayNameFor((model) => model.datePaid.ToString("dd/MM/yyyy")) </th>
             <th> @Html.DisplayNameFor((model) => model.amount) </th>
             <th> @Html.DisplayNameFor((model) => model.status) </th>
             <th> @Html.DisplayNameFor((model) => model.owner) </th>
@@ -16,8 +16,8 @@
         @foreach (var item in Model){
             string tmp = item.status ? "Hoàn thành" : "Đang chờ";
             <tr>
-                <td> @Html.DisplayFor(model => item.dateRelease) </td>
-                <td> @Html.DisplayFor(model => item.datePaid) </td>
+                <td> @Html.DisplayFor(model => item.dateRelease.ToString("dd/MM/yyyy")) </td>
+                <td> @Html.DisplayFor(model => item.datePaid.ToString("dd/MM/yyyy")) </td>
                 <td> @Html.DisplayFor(model => item.amount) </td>
                 <td> @Html.DisplayFor(model => tmp ) </td>
                 <td> @Html.DisplayFor(model => item.owner) </td>

@@ -55,7 +55,6 @@ namespace ManagerApartmentProject
             services.AddTransient<IInvoiceBuildingRes, InvoiceBuildingRes>();
             services.AddTransient<IInvoiceApartmentRes, InvoiceApartmentRes>();
             services.AddTransient<IEmployeeRes, EmployeeRes>(); 
-            services.AddTransient<IAdminRes, AdminRes>(); 
             services.AddTransient<ITenantRes, TenantRes>(); 
             //  End add service for Respositories
             

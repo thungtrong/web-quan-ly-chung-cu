@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
+using ManagerApartmentProject;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ManagerAparmentProject.Controllers
 {
@@ -69,6 +71,7 @@ namespace ManagerAparmentProject.Controllers
             {
                 return RedirectToAction("Index");
             }
+            
             Apartment UpdateApartment = _apartmentRes.GetByID(id);
             return View(UpdateApartment);
         }

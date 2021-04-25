@@ -7,8 +7,8 @@ namespace ManagerApartmentProject.Repositories
     {
         List<Tenant> GetAll();
         Tenant GetById(int id);
-        bool EditById(int id, Tenant maintenance);
+        bool EditById(int id, Tenant tenant);
         bool DeleteById(int id);
-        bool Create(Tenant maintenance, int creatorId);
+        bool Create(Tenant tenant);
     }
 }

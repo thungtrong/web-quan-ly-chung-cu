@@ -7,7 +7,7 @@
             <th> @Html.DisplayNameFor((model) => model.ID) </th>
             <th> @Html.DisplayNameFor((model) => model.name) </th>
             <th> @Html.DisplayNameFor((model) => model.count) </th>
-            <th> @Html.DisplayNameFor((model) => model.equipmentOf) </th>
+            <th> @Html.DisplayNameFor((model) => model.apartmentName) </th>
             <th> Action </th>
         </tr>
     </thead>
@@ -20,7 +20,7 @@
                 <td> @Html.DisplayFor(model => item.ID) </td>
                 <td> @Html.DisplayFor(model => item.name) </td>
                 <td> @Html.DisplayFor(model => item.count) </td>
-                <td> @Html.DisplayFor(model => item.equipmentOf) </td>
+                <td> @Html.DisplayFor(model => item.apartmentName) </td>
                 
                 <td>
                     <a asp-action="Detail" asp-route-id="@item.ID" class="btn btn-info btn-sm btn-small">

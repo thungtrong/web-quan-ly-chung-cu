@@ -197,7 +197,7 @@ END
 GO
 
 
-Create PROC Tenant_GetIdNameAll
+CREATE PROC Tenant_GetIdNameAll
 AS
 BEGIN
 	SELECT ID, name

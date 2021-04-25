@@ -1,17 +1,32 @@
 use ManagerApartment;
 go
 
+-- chi lay ve ten va id
+CREATE PROC Apartment_GetIdNameAll
+AS
+BEGIN
+	SELECT [Apartment].[ID]
+		  ,[Apartment].[name]
+	  FROM [dbo].[Apartment] 
+
+END
+
+go
+
 ALTER PROC Apartment_GetAll
 AS
 BEGIN
-	SELECT [ID]
-		  ,[name]
+	SELECT [Apartment].[ID]
+		  ,[Apartment].[name]
 		  ,[floor]
 		  ,[status]
-		  ,[description]
+		  ,[Apartment].[description]
 		  ,[payment_per_month] as [paymentPerMonth]
-	  FROM [dbo].[Apartment]
+		  ,[Floor].[name] as [floorName]
+	  FROM [dbo].[Apartment] join [Floor]
+	  ON [floor] = [FLOOR].[ID]
 END
+GO
 
 GO
 
@@ -19,13 +34,15 @@ ALTER PROCEDURE Apartment_GetById
 	@id int
 AS
 BEGIN
-	SELECT [ID]
-		  ,[name]
+	SELECT [Apartment].[ID]
+		  ,[Apartment].[name]
 		  ,[floor]
 		  ,[status]
-		  ,[description]
+		  ,[Apartment].[description]
 		  ,[payment_per_month] as [paymentPerMonth]
-	FROM [dbo].[Apartment]
+		  ,[Floor].[name] as [floorName]
+	  FROM [dbo].[Apartment] join [Floor]
+	  ON [floor] = [FLOOR].[ID]
 	Where [Apartment].[ID] = @id
 END
 Go

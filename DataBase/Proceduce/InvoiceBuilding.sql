@@ -6,10 +6,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Trần Hưng Trọng	
--- CREATE date: 22/04/2021
+-- ALTER date: 22/04/2021
 -- Description:	Proceduce cho modul quản lý hoá đơn toà nhà
 -- =============================================
-CREATE PROC InvoiceBuilding_Add
+ALTER PROC InvoiceBuilding_Add
 @title nvarchar(200),
 @date_create date,
 @amount int,
@@ -35,7 +35,7 @@ BEGIN
 END
 GO
 
-CREATE PROC InvoiceBuilding_EditById
+ALTER PROC InvoiceBuilding_EditById
 @id int,
 @title nvarchar(200),
 @date_create date,
@@ -56,7 +56,7 @@ END
 
 GO
 
-CREATE PROC InvoiceBuilding_DeleteById
+ALTER PROC InvoiceBuilding_DeleteById
 @id int
 AS
 BEGIN
@@ -65,7 +65,7 @@ BEGIN
 END
 GO
 
-CREATE PROC InvoiceBuilding_EditStatusById
+ALTER PROC InvoiceBuilding_EditStatusById
 @id int,
 @status bit
 AS
@@ -77,12 +77,12 @@ END
 GO
 
 
-CREATE PROC InvoiceBuilding_GetAll
+ALTER PROC InvoiceBuilding_GetAll
 AS
 BEGIN
 	SELECT [InvoiceBuilding].[ID]
 			,[title]
-			,[date_create] as [dateCreate]
+			,[date_create] as [dateALTER]
 			,[amount]
 			,[status]
 			,[description]
@@ -94,13 +94,13 @@ END
 GO
 
 
-CREATE PROC InvoiceBuilding_GetById
+ALTER PROC InvoiceBuilding_GetById
 @id int
 AS
 BEGIN
 	SELECT [InvoiceBuilding].[ID]
 			,[title]
-			,[date_create] as [dateCreate]
+			,[date_create] as [dateALTER]
 			,[amount]
 			,[status]
 			,[description]
@@ -112,7 +112,7 @@ END
 GO
 
 
-CREATE PROC InvoiceBuilding_GetByRowNum
+ALTER PROC InvoiceBuilding_GetByRowNum
 @start int,
 @end int
 AS
@@ -133,7 +133,7 @@ BEGIN
 	SELECT 
 		[ID]
 		,[title]
-		,[date_create] as [dateCreate]
+		,[date_create] as [dateALTER]
 		,[amount]
 		,[status]
 		,[description]
@@ -144,7 +144,7 @@ END
 GO
 
 
-CREATE PROC InvoiceBuilding_GetRowCount
+ALTER PROC InvoiceBuilding_GetRowCount
 AS
 BEGIN
 	SELECT COUNT(ID) as [count]

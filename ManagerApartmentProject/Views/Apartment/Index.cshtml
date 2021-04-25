@@ -6,10 +6,9 @@
         <tr>
             <th> @Html.DisplayNameFor((model) => model.ID) </th>
             <th> @Html.DisplayNameFor((model) => model.name) </th>
-            <th> @Html.DisplayNameFor((model) => model.floor) </th>
+            <th> @Html.DisplayNameFor((model) => model.floorName) </th>
             <th> @Html.DisplayNameFor((model) => model.status) </th>
             <th> @Html.DisplayNameFor((model) => model.paymentPerMonth) </th>
-            <th> @Html.DisplayNameFor((model) => model.description) </th>
             
             <th> Action </th>
         </tr>
@@ -22,16 +21,15 @@
             <tr>
                 <td> @Html.DisplayFor((model) => item.ID) </td>
                 <td> @Html.DisplayFor((model) => item.name) </td>
-                <td> @Html.DisplayFor((model) => item.floor) </td>
+                <td> @Html.DisplayFor((model) => item.floorName) </td>
                 <td> @Html.DisplayFor((model) => item.status) </td>
                 <td> @Html.DisplayFor((model) => item.paymentPerMonth) </td>
-                <td> @Html.DisplayFor((model) => item.description) </td>
             
                 <td>
                     <a asp-action="Detail" asp-route-id="@item.ID" class="btn btn-info btn-sm btn-small">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-danger btn-sm btn-small">
+                    <a asp-action="Update" asp-route-id="@item.ID" class="btn btn-danger btn-sm btn-small">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
                     <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-warning btn-sm btn-small">
@@ -51,7 +49,6 @@
     <style>
         .btn-small {
             padding: 0.3rem 0.3em 0.3em 0.5em;
-
         }
         tbody {
             max-height: 55vh;

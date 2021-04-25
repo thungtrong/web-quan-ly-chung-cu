@@ -20,7 +20,7 @@ namespace ManagerApartmentProject.Repositories
         #region List 
         public List<Apartment> GetAll()
         {
-            
+
             return DataProvider.GetListFrom<Apartment>(
                 "Apartment_GetAll",
                 null,
@@ -30,7 +30,7 @@ namespace ManagerApartmentProject.Repositories
         #region Item
         public Apartment GetByID(int ID)
         {
-            
+
             return DataProvider.GetObjectByIdFrom<Apartment>(
                 "Apartment_GetById",
                 ID,
@@ -48,7 +48,7 @@ namespace ManagerApartmentProject.Repositories
                 apartment.description,
                 apartment.status,
             };
-            
+
             bool result = _connection.ExecuteData("Apartment_Insert", value);
 
             return result;
@@ -58,7 +58,7 @@ namespace ManagerApartmentProject.Repositories
             object[] value = {
                id
             };
-            
+
             bool result = _connection.ExecuteData("Apartment_DeleteById", value);
 
             return result;
@@ -70,13 +70,22 @@ namespace ManagerApartmentProject.Repositories
                 id,
                 apartment.name,
                 apartment.floor,
-                apartment.description,
-                apartment.status
+                apartment.status,
+                apartment.paymentPerMonth,
+                apartment.description
             };
-            
+
             bool result = _connection.ExecuteData("Apartment_EditByID", value);
 
             return result;
+        }
+
+        public List<ApartmentModel> GetIdNameAll()
+        {
+            return DataProvider.GetListFrom<ApartmentModel>(
+                            "Apartment_GetIdNameAll",
+                            null,
+                            (DataRow row) => SQLCommand.Map<ApartmentModel>(row));
         }
     }
 }

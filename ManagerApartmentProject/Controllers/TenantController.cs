@@ -34,7 +34,7 @@ namespace ManagerApartmentProject.Controllers
                 return View(tenant);
             }
             var creatorId = Convert.ToInt32(Request.Cookies["Id"]);
-            bool result = _tenantRes.Create(tenant, creatorId);
+            bool result = _tenantRes.Create(tenant);
             if (result){
                 return RedirectToAction("Index");
             }

@@ -17,7 +17,7 @@ BEGIN
 END
 GO
 
-Create PROCEDURE Apartment_GetById
+CREATE PROCEDURE Apartment_GetById
 	@id int
 AS
 BEGIN
@@ -27,7 +27,7 @@ BEGIN
 END
 GO
 
-Create PROCEDURE Apartment_Insert
+CREATE PROCEDURE Apartment_Insert
 	@id int,
 	@name nvarchar(10),
 	@floor int,
@@ -59,16 +59,20 @@ BEGIN
 END
 GO
 
-Create PROCEDURE Apartment_EditByID
+CREATE PROCEDURE Apartment_EditByID
 	@id int,
-    @status int,
-    @description nvarchar(MAX)
+	@name nvarchar(10),
+	@floor int,
+	@status int,
+	@pay_per_month int,
+	@description nvarchar(max)
 AS
 BEGIN
 	
 	UPDATE [dbo].[Apartment]
 	SET  [status] = @status
 		,[description] = @description
+		,[payment_per_month] = @pay_per_month
 	WHERE ID = @id
 END
 GO

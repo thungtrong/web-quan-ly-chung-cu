@@ -1,33 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ManagerAparmentProject.Models;
-using ManagerAparmentProject.Repositories;
+using ManagerApartmentProject.Repositories;
+using ManagerApartmentProject.Models;
+using ManagerApartmentProject;
 
 namespace ManagerAparmentProject.Controllers
 {
     public class FloorController : Controller
     {
 
+        private readonly IFloorRes _floorRes;
+        public FloorController(IFloorRes floorRes){
+            _floorRes = floorRes;
+        }
+
         // GET: Floor
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var lstFloor = FloorRes.GetAll();
+            var lstFloor = _floorRes.GetAll();
             return View(lstFloor);
         }
 
-        // GET: Floor/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Floor/Detail/5
+        public IActionResult Detail(int id)
         {
-            Floor floor = FloorRes.GetByID(id);
-            return View(floor);
+            Floor apartment = _floorRes.GetByID(id);
+            return View(apartment);
         }
 
         // GET: Floor/Create
         public IActionResult Create()
         {
-            var floor = new Floor();
-            return View(floor);
+            var apartment = new Floor();
+            return View(apartment);
         }
 
         // POST: Floor/Create
@@ -35,18 +42,18 @@ namespace ManagerAparmentProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name,description")] Floor floor)
+        public IActionResult Create(Floor apartment)
         {
             try
             {
-                var result = FloorRes.Insert(floor);
+                var result = _floorRes.Insert(apartment);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(floor);
+                    return View(apartment);
                 }
 
             }
@@ -56,48 +63,55 @@ namespace ManagerAparmentProject.Controllers
             }
         }
 
-        // GET: Floor/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Floor/Update/5
+        public IActionResult Update(int id)
         {
-            Floor EditFloor = FloorRes.GetByID(id);
-            return View(EditFloor);
+            if (id == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            Floor UpdateFloor = _floorRes.GetByID(id);
+            return View(UpdateFloor);
         }
 
-        // POST: Floor/Edit/5
+        // POST: Floor/Update/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,name,description")] Floor floor)
-        {       
+        public IActionResult Update(int id, Floor apartment)
+        {
 
-             var result = FloorRes.Update(id, floor);
-             if (result)
-             {
-                 return RedirectToAction("Details", new { id = id });
-             }
-             else
-             {
-                 return View(floor);
-             }
-        
+            var result = _floorRes.UpdateById(id, apartment);
+            if (result)
+            {
+                return RedirectToAction("Detail", new { id = id });
+            }
+            else
+            {
+                return View(apartment);
+            }
+
         }
 
-            // GET: Floor/Delete/5
-            public async Task<IActionResult> Delete(int? id)
+        // GET: Floor/Delete/5
+        public IActionResult Delete(int id)
         {
-            Floor DelFloor = FloorRes.GetByID(id);
+            if (id == 0){
+                return RedirectToAction("Index");
+            }
+            Floor DelFloor = _floorRes.GetByID(id);
             return View(DelFloor);
         }
 
         // POST: Floor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             try
             {
-                var result = FloorRes.Delete(id);
+                var result = _floorRes.DeleteById(id);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));

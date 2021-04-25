@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ManagerAparmentProject.Models
+namespace ManagerApartmentProject.Models
 {
+    [Bind("ID,name,description")]
     public class Floor
     {
-        public int id { get; set; }
+        public int ID { get; set; }
         public String name { get; set; }
         public String description { get; set; }
     }

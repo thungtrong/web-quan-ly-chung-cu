@@ -1,0 +1,33 @@
+@model Apartment
+
+
+@* @await Html.PartialAsync("_Form.cshtml", new {model = Model, disabled=true}) *@
+<form>
+    <div class="form-group">
+        <label asp-for="name"></label>
+        <input asp-for="name" disabled class="form-control" placeholder="Nhập tên căn hộ">
+    </div>
+    <div class="form-group">
+        <label asp-for="floor"></label>
+        <input asp-for="floor" disabled class="form-control" >
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input asp-for="status" disabled /> Đã được thuê
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="paymentPerMonth"></label>
+        <input asp-for="paymentPerMonth" disabled  class="form-control" placeholder="Nhập mô tả">
+    </div>
+    <div class="form-group">
+        <label asp-for="description"></label>
+        <input asp-for="description" disabled class="form-control" placeholder="Nhập mô tả">
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-default" asp-action="Index">Back</button>
+    </div>
+</form>

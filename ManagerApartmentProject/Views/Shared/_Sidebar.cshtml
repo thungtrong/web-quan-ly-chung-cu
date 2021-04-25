@@ -1,20 +1,25 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item nav-category">Dashboard</li>
+        <li class="nav-item nav-category">
+            <a  class="nav-link" asp-controller="Home" asp-action="Index" >
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" asp-controller="Floor" asp-action="Index">
                 <i class="fas fa-coffee"></i>
                 <span class="menu-title">Tầng</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="basic_elements.html">
+            <a class="nav-link" asp-controller="Apartment" asp-action="Index">
                 <i class="fas fa-home"></i>
                 <span class="menu-title">Phòng</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="basic_elements.html">
+            <a class="nav-link" asp-controller="Equipment" asp-action="Index">
                 <i class="fas fa-th"></i>
                 <span class="menu-title">Thiết bị</span>
             </a>

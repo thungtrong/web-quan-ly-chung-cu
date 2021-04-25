@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -49,6 +47,9 @@ namespace ManagerApartmentProject
             // End Cau hinh phan quyen
 
             // Add service for Respositories
+            services.AddTransient<IApartmentRes, ApartmentRes>();
+            services.AddTransient<IFloorRes, FloorRes>();
+            services.AddTransient<IEquipmentRes, EquipmentRes>();
             services.AddSingleton<INotificationRes, NotificationRes>();
             services.AddTransient<IMaintenanceRes, MaintenanceRes>();
             services.AddTransient<IInvoiceBuildingRes, InvoiceBuildingRes>();
@@ -57,10 +58,9 @@ namespace ManagerApartmentProject
             services.AddTransient<IAdminRes, AdminRes>(); 
             services.AddTransient<ITenantRes, TenantRes>(); 
             //  End add service for Respositories
-            DataProvider.AddInstance(Configuration.GetConnectionString("DefaultConnection"));
-
             
-
+            DataProvider.AddInstance(Configuration.GetConnectionString("DefaultConnection"));
+            ConstValue.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;

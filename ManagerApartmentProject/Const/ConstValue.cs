@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ManagerAparmentProject.Const
+namespace ManagerApartmentProject.Const
 {
     public class ConstValue
     {

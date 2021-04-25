@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ManagerAparmentProject.Models
+namespace ManagerApartmentProject.Models
 {
+    [Bind("ID,name,floor,description,status,paymentPerMonth")]
     public class Apartment
     {
-        public int id { get; set; }
-        public String name { get; set; }
+        public int ID { get; set; }
+        public string name { get; set; }
         public int floor { get; set; }
-        public String description { get; set; }
-        public int status { get; set; }
+        public string description { get; set; }
+        public bool status { get; set; }
   
-
+        public int paymentPerMonth { get; set; }
     }
 }

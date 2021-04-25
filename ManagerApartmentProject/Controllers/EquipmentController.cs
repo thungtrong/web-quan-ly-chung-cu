@@ -1,34 +1,39 @@
-﻿using ManagerAparmentProject.Models;
-using ManagerAparmentProject.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using ManagerApartmentProject.Repositories;
+using ManagerApartmentProject.Models;
 
 namespace ManagerAparmentProject.Controllers
 {
     public class EquipmentController : Controller
     {
-        public async Task<IActionResult> Index()
+
+        private readonly IEquipmentRes _equipmentRes;
+        public EquipmentController(IEquipmentRes equipmentRes){
+            _equipmentRes = equipmentRes;
+        }
+
+        // GET: Equipment
+        public IActionResult Index()
         {
-            var lstEquipment = EquipmentRes.GetAll();
+            var lstEquipment = _equipmentRes.GetAll();
             return View(lstEquipment);
         }
 
-        // GET: Equipment/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Equipment/Detail/5
+        public IActionResult Detail(int id)
         {
-            Equipment equipment = EquipmentRes.GetByID(id);
-            return View(equipment);
+            Equipment apartment = _equipmentRes.GetByID(id);
+            return View(apartment);
         }
 
         // GET: Equipment/Create
         public IActionResult Create()
         {
-            var equipment = new Equipment();
-            return View(equipment);
+            var apartment = new Equipment();
+            return View(apartment);
         }
 
         // POST: Equipment/Create
@@ -36,18 +41,18 @@ namespace ManagerAparmentProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("name,count,equipment_of")] Equipment equipment)
+        public IActionResult Create(Equipment apartment)
         {
             try
             {
-                var result = EquipmentRes.Insert(equipment);
+                var result = _equipmentRes.Insert(apartment);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(equipment);
+                    return View(apartment);
                 }
 
             }
@@ -57,48 +62,55 @@ namespace ManagerAparmentProject.Controllers
             }
         }
 
-        // GET: Equipment/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Equipment/Update/5
+        public IActionResult Update(int id)
         {
-            Equipment editEquipment = EquipmentRes.GetByID(id);
-            return View(editEquipment);
+            if (id == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            Equipment UpdateEquipment = _equipmentRes.GetByID(id);
+            return View(UpdateEquipment);
         }
 
-        // POST: Equipment/Edit/5
+        // POST: Equipment/Update/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("name,count,equipment_of")] Equipment equipment)
+        public IActionResult Update(int id, Equipment apartment)
         {
 
-            var result = EquipmentRes.Update(id, equipment);
+            var result = _equipmentRes.UpdateById(id, apartment);
             if (result)
             {
-                return RedirectToAction("Details", new { id = id });
+                return RedirectToAction("Detail", new { id = id });
             }
             else
             {
-                return View(equipment);
+                return View(apartment);
             }
 
         }
 
         // GET: Equipment/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            Equipment delEquipment = EquipmentRes.GetByID(id);
-            return View(delEquipment);
+            if (id == 0){
+                return RedirectToAction("Index");
+            }
+            Equipment DelEquipment = _equipmentRes.GetByID(id);
+            return View(DelEquipment);
         }
 
         // POST: Equipment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             try
             {
-                var result = EquipmentRes.Delete(id);
+                var result = _equipmentRes.DeleteById(id);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));
@@ -114,5 +126,6 @@ namespace ManagerAparmentProject.Controllers
                 return View();
             }
         }
+
     }
 }

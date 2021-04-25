@@ -2,26 +2,30 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ManagerAparmentProject.Models;
-using ManagerAparmentProject.Repositories;
+using ManagerApartmentProject.Models;
+using ManagerApartmentProject.Repositories;
 
 namespace ManagerAparmentProject.Controllers
 {
     public class ApartmentController : Controller
     {
 
+        private readonly IApartmentRes _apartmentRes;
+        public ApartmentController(IApartmentRes apartmentRes){
+            _apartmentRes = apartmentRes;
+        }
 
         // GET: Apartment
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var lstApartment = ApartmentRes.GetAll();
+            var lstApartment = _apartmentRes.GetAll();
             return View(lstApartment);
         }
 
-        // GET: Apartment/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Apartment/Detail/5
+        public IActionResult Detail(int id)
         {
-            Apartment apartment = ApartmentRes.GetByID(id);
+            Apartment apartment = _apartmentRes.GetByID(id);
             return View(apartment);
         }
 
@@ -37,11 +41,11 @@ namespace ManagerAparmentProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name,description")] Apartment apartment)
+        public IActionResult Create(Apartment apartment)
         {
             try
             {
-                var result = ApartmentRes.Insert(apartment);
+                var result = _apartmentRes.Insert(apartment);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));
@@ -58,25 +62,29 @@ namespace ManagerAparmentProject.Controllers
             }
         }
 
-        // GET: Apartment/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Apartment/Update/5
+        public IActionResult Update(int id)
         {
-            Apartment EditApartment =ApartmentRes.GetByID(id);
-            return View(EditApartment);
+            if (id == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            Apartment UpdateApartment = _apartmentRes.GetByID(id);
+            return View(UpdateApartment);
         }
 
-        // POST: Apartment/Edit/5
+        // POST: Apartment/Update/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,name,description")] Apartment apartment)
+        public IActionResult Update(int id, Apartment apartment)
         {
 
-            var result = ApartmentRes.Update(id, apartment);
+            var result = _apartmentRes.UpdateById(id, apartment);
             if (result)
             {
-                return RedirectToAction("Details", new { id = id });
+                return RedirectToAction("Detail", new { id = id });
             }
             else
             {
@@ -86,20 +94,23 @@ namespace ManagerAparmentProject.Controllers
         }
 
         // GET: Apartment/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            Apartment DelApartment = ApartmentRes.GetByID(id);
+            if (id == 0){
+                return RedirectToAction("Index");
+            }
+            Apartment DelApartment = _apartmentRes.GetByID(id);
             return View(DelApartment);
         }
 
         // POST: Apartment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             try
             {
-                var result = ApartmentRes.Delete(id);
+                var result = _apartmentRes.DeleteById(id);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));

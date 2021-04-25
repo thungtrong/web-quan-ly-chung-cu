@@ -15,6 +15,14 @@ namespace ManagerApartmentProject.Const
             MAXROW = 10;
         }
 
+        /// <summary>
+        /// Get List of model T from database by proceduce has name is proceduceName
+        /// </summary>
+        /// <param name="proceduceName">Ten Proceduce</param>
+        /// <param name="values">Tham so truyen vao Proceduce</param>
+        /// <param name="func">Func thuc hien Map DataRow thanh kieu du lieu T</param>
+        /// <typeparam name="T">Kieu du lieu can lay</typeparam>
+        /// <returns>List of model T</returns>
         public static List<T> GetListFrom<T>(string proceduceName, object[] values, Func<DataRow, T> func)
         {
             DataTable dt = DataProvider.INSTANCE.Select(proceduceName, values);
@@ -31,6 +39,14 @@ namespace ManagerApartmentProject.Const
             return lst;
         }
 
+        /// <summary>
+        /// Get instance class T from database by proceduceName
+        /// </summary>
+        /// <param name="proceduceName">Name of Proceduce</param>
+        /// <param name="id">ID</param>
+        /// <param name="func">Func mapping DataRow to T</param>
+        /// <typeparam name="T">Type of instance</typeparam>
+        /// <returns>Object Type T</returns>
         public static T GetObjectByIdFrom<T>(string proceduceName, int id, Func<DataRow, T> func){
             if (id > 0){
                 DataTable dt = DataProvider.INSTANCE

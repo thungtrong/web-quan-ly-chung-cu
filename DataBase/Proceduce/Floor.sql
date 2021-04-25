@@ -28,18 +28,15 @@ END
 GO
 
 Create PROCEDURE Floor_Insert
-	@id int,
 	@name nvarchar(10),
 	@description nvarchar(max)
 AS
 BEGIN
 	INSERT INTO [dbo].[Floor]
-           ([ID]
-           ,[name]
+           ([name]
            ,[description])
      VALUES
-           (@id
-           ,@name
+           (@name
            ,@description);
 END
 GO

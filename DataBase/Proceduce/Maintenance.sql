@@ -10,7 +10,7 @@ GO
 -- Description:	Proceduce cho modul quản lý chi phí bảo trì
 -- =============================================
 
-CREATE PROC Maintenance_Add
+CREATE PROC Employee_Add
 @title nvarchar(200),
 @date_create date,
 @amount int,
@@ -19,7 +19,7 @@ CREATE PROC Maintenance_Add
 @creator int
 AS
 BEGIN
-	INSERT INTO [dbo].[Maintenance]
+	INSERT INTO [dbo].[Employee]
            ([title]
            ,[date_create]
            ,[amount]
@@ -37,7 +37,7 @@ BEGIN
 END
 GO
 
-CREATE PROC Maintenance_EditById
+CREATE PROC Employee_EditById
 @id int,
 @title nvarchar(200),
 @date_create date,
@@ -46,68 +46,68 @@ CREATE PROC Maintenance_EditById
 @description varchar(max)
 AS
 BEGIN
-	UPDATE [dbo].[Maintenance]
+	UPDATE [dbo].[Employee]
 	   SET [title] = @title
 		  ,[date_create] = @date_create
 		  ,[amount] = @amount
 		  ,[status] = @status
 		  ,[description] = @description
-	 WHERE [Maintenance].[ID] = @id
+	 WHERE [Employee].[ID] = @id
 END
 GO
-CREATE PROC Maintenance_EditStatusById
+CREATE PROC Employee_EditStatusById
 @id int,
 @status int
 AS
 BEGIN
-	UPDATE [dbo].[Maintenance]
+	UPDATE [dbo].[Employee]
 	   SET [status] = @status
 	 WHERE [ID] = @id
 END
 GO
 
-CREATE PROC Maintenance_DeleteById
+CREATE PROC Employee_DeleteById
 @id int
 AS
 BEGIN
-	DELETE FROM [dbo].[Maintenance]
+	DELETE FROM [dbo].[Employee]
     WHERE [ID] = @id
 END
 
 GO
-CREATE PROC Maintenance_GetAll
+CREATE PROC Employee_GetAll
 AS
 BEGIN
-	SELECT [Maintenance].[ID]
+	SELECT [Employee].[ID]
 		  ,[title]
 		  ,[date_create] as [dateCreate]
 		  ,[amount]
 		  ,[status]
 		  ,[description]
 		  ,[Admin].[name] as [creator]
-	FROM [dbo].[Maintenance] inner join [dbo].[Admin]
-	ON [Admin].[ID] = [Maintenance].[creator]
+	FROM [dbo].[Employee] inner join [dbo].[Admin]
+	ON [Admin].[ID] = [Employee].[creator]
 	ORDER BY [date_create] DESC
 END
 GO
 
-CREATE PROC Maintenance_GetById
+CREATE PROC Employee_GetById
 @id int
 AS
 BEGIN
-	SELECT [Maintenance].[ID]
+	SELECT [Employee].[ID]
 		  ,[title]
 		  ,[date_create] as [dateCreate]
 		  ,[amount]
 		  ,[status]
 		  ,[description]
 		  ,[Admin].[name] as [creator]
-	FROM [dbo].[Maintenance] inner join [dbo].[Admin]
-	ON [Admin].[ID] = [Maintenance].[creator]
-    WHERE [Maintenance].[ID] = @id
+	FROM [dbo].[Employee] inner join [dbo].[Admin]
+	ON [Admin].[ID] = [Employee].[creator]
+    WHERE [Employee].[ID] = @id
 END
 GO
-CREATE PROC Maintenance_GetByRowNum
+CREATE PROC Employee_GetByRowNum
 @start int,
 @end int
 AS 
@@ -115,15 +115,15 @@ BEGIN
 	With work_tmp as (
 		SELECT 
 			ROW_NUMBER() OVER(ORDER BY [date_create] DESC) as row#
-			,[Maintenance].[ID]
+			,[Employee].[ID]
 			,[title]
 			,[date_create]
 			,[amount]
 			,[status]
 			,[description]
 			,[Admin].[name] as [creator]
-		FROM [dbo].[Maintenance] inner join [dbo].[Admin]
-		ON [Admin].[ID] = [Maintenance].[creator]
+		FROM [dbo].[Employee] inner join [dbo].[Admin]
+		ON [Admin].[ID] = [Employee].[creator]
 	)
 	SELECT 
 		[ID]
@@ -138,9 +138,9 @@ BEGIN
 END
 
 GO
-CREATE PROC Maintenance_GetRowCount
+CREATE PROC Employee_GetRowCount
 AS
 BEGIN
 	SELECT COUNT([ID]) as [count]
-	FROM [dbo].[Maintenance] 
+	FROM [dbo].[Employee] 
 END

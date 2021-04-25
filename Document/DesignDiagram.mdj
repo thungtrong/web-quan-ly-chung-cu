@@ -89829,7 +89829,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF4wbWjavVNzfo="
 							},
-							"name": "join_date",
+							"name": "joinDate",
 							"type": "date",
 							"length": 0
 						},

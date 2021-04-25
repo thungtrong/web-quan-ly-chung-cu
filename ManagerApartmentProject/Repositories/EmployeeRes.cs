@@ -6,34 +6,33 @@ using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ManagerApartmentProject.Repositories{
+namespace ManagerApartmentProject.Repositories
+{
     public class EmployeeRes : IEmployeeRes
     {
         private readonly Func<DataRow, Employee> _func;
-        public EmployeeRes(){
+        public EmployeeRes()
+        {
             _func = (DataRow row) => SQLCommand.Map<Employee>(row);
         }
 
-        public bool Create(Employee employee, int creatorID)
+        public bool Create(Employee employee)
         {
             object[] values = {
-                employee.ID,
                 employee.name,
-                employee.address,
                 employee.email,
-                employee.phoneNumber, 
+                employee.phoneNumber,
+                employee.address,
+                employee.joinDate,
                 employee.salary,
-                employee.join_date,
-                employee.position,
-                employee.description,
-                creatorID
+                employee.description
             };
-            return DataProvider.INSTANCE.ExecuteData("Employee_Add", values);
+            return DataProvider.INSTANCE.ExecuteData("Employee_Create", values);
         }
 
         public bool DeleteById(int id)
         {
-            return DataProvider.INSTANCE.ExecuteData("Employee_DeleteById", new object[] {id});
+            return DataProvider.INSTANCE.ExecuteData("Employee_DeleteById", new object[] { id });
         }
 
         public bool EditById(int id, Employee employee)
@@ -41,13 +40,12 @@ namespace ManagerApartmentProject.Repositories{
             object[] values = {
                 id,
                employee.name,
-                employee.address,
                 employee.email,
-                employee.phoneNumber, 
+                employee.phoneNumber,
+                employee.address,
+                employee.joinDate,
                 employee.salary,
-                employee.join_date,
-                employee.position,
-                employee.description,
+                employee.description
             };
             return DataProvider.INSTANCE.ExecuteData("Employee_EditById", values);
         }

@@ -4,7 +4,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th> @Html.DisplayNameFor((model) => model.ID) </th>
+            
             <th> @Html.DisplayNameFor((model) => model.name) </th>
             <th> @Html.DisplayNameFor((model) => model.email) </th>
             <th> @Html.DisplayNameFor((model) => model.phoneNumber) </th>
@@ -20,7 +20,7 @@
         }
         @foreach (var item in Model){
             <tr>
-                <td> @Html.DisplayFor(model => item.ID) </td>
+                
                 <td> @Html.DisplayFor(model => item.name) </td>
                 <td> @Html.DisplayFor(model => item.email) </td>
                 <td> @Html.DisplayFor(model => item.phoneNumber) </td>

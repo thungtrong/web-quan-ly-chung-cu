@@ -14,20 +14,18 @@ namespace ManagerApartmentProject.Repositories{
             _func = (DataRow row) => SQLCommand.Map<Tenant>(row);
         }
 
-        public bool Create(Tenant tenant, int creatorID)
+        public bool Create(Tenant tenant)
         {
             object[] values = {
-                tenant.ID,
+  
                 tenant.name,
                 tenant.email,
                 tenant.phoneNumber,
                 tenant.advancePayment,
-                tenant.paymentPerMonth,
-                tenant.status,
-                tenant.unitNo,
-                creatorID
+              
+                
             };
-            return DataProvider.INSTANCE.ExecuteData("Tenant_Add", values);
+            return DataProvider.INSTANCE.ExecuteData("Tenant_Create", values);
         }
 
         public bool DeleteById(int id)
@@ -38,15 +36,12 @@ namespace ManagerApartmentProject.Repositories{
         public bool EditById(int id, Tenant tenant)
         {
             object[] values = {
-                id,
-                
+                id,                
                 tenant.name,
                 tenant.email,
                 tenant.phoneNumber,
                 tenant.advancePayment,
-                tenant.paymentPerMonth,
-                tenant.status,
-                tenant.unitNo,
+             
             };
             return DataProvider.INSTANCE.ExecuteData("Tenant_EditById", values);
         }
@@ -68,7 +63,5 @@ namespace ManagerApartmentProject.Repositories{
                 _func
             );
         }
-
-
     }
 }

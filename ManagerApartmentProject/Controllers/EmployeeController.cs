@@ -33,8 +33,7 @@ namespace ManagerApartmentProject.Controllers
             if (employee == null){
                 return View(employee);
             }
-            var creatorId = Convert.ToInt32(Request.Cookies["Id"]);
-            bool result = _employeeRes.Create(employee, creatorId);
+            bool result = _employeeRes.Create(employee);
             if (result){
                 return RedirectToAction("Index");
             }

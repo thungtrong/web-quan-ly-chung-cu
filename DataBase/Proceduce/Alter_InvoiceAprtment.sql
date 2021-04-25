@@ -1,4 +1,7 @@
-﻿-- =============================================
+﻿use [ManagerApartment];
+
+go
+-- =============================================
 -- Author:		Trần Hưng Trọng	
 -- CREATE date: 21/04/2021
 -- Description:	Sửa đổi proceduce của bảng InvoiceApartment

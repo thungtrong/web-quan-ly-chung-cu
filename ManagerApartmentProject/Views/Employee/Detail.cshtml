@@ -5,6 +5,9 @@
 @inject ILogger<EmployeeController> _logger
 
 
+
+
+
 @* @await Html.PartialAsync("_Form.cshtml", new {model = Model, disabled=true}) *@
 <form>
     <div class="form-group">
@@ -26,7 +29,7 @@
 
     <div class="form-group">
         <label asp-for="phoneNumber"></label>
-        <input asp-for="phoneNumber"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <input asp-for="phoneNumber" class="form-control" disabled placeholder="Nhập tiêu đề">
         <span asp-validation-for="phoneNumber" class="text-danger"></span>
     </div>
 
@@ -37,16 +40,11 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="join_date"></label>
-        <input asp-for="join_date"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="join_date" class="text-danger"></span>
+        <label asp-for="joinDate"></label>
+        <input asp-for="joinDate"  class="form-control" disabled placeholder="Nhập tiêu đề">
+        <span asp-validation-for="joinDate" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="position"></label>
-        <input asp-for="position"  class="form-control" disabled placeholder="Nhập tiêu đề">
-        <span asp-validation-for="position" class="text-danger"></span>
-    </div>
     
     <div class="form-group">
         <label asp-for="description"></label>
@@ -55,8 +53,8 @@
     </div>
     
     <div class="form-group">
-        <a type="submit" class="btn btn-primary submit">Save</a>
+        <button type="submit" class="btn btn-primary submit">Save</a>
         <button class="btn btn-default" asp-controller="Employee" asp-action="Index">Back</button>
     </div>
-    <button class="btn btn-primary"asp-controller="Employee" asp-action="Index">Back</button>
+
 </form>

@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ManagerApartmentProject.Repositories;
 using ManagerApartmentProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManagerAparmentProject.Controllers
 {
+    [Authorize]
     public class EquipmentController : Controller
     {
 

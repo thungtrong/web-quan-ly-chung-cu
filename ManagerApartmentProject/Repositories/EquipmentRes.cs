@@ -8,6 +8,14 @@ using System.Linq;
 
 namespace ManagerApartmentProject.Repositories
 {
+    public interface IEquipmentRes
+    {
+        List<Equipment> GetAll();
+        Equipment GetByID(int id);
+        bool Insert(Equipment apartment);
+        bool UpdateById(int id, Equipment apartment);
+        bool DeleteById(int id);
+    }
     public class EquipmentRes : IEquipmentRes
     {
         private readonly Func<DataRow, Equipment> _func;

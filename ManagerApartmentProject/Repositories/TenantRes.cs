@@ -6,42 +6,52 @@ using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ManagerApartmentProject.Repositories{
+namespace ManagerApartmentProject.Repositories
+{
+    public interface ITenantRes
+    {
+        List<Tenant> GetAll();
+        Tenant GetById(int id);
+        bool EditById(int id, Tenant tenant);
+        bool DeleteById(int id);
+        bool Create(Tenant tenant);
+    }
     public class TenantRes : ITenantRes
     {
         private readonly Func<DataRow, Tenant> _func;
-        public TenantRes(){
+        public TenantRes()
+        {
             _func = (DataRow row) => SQLCommand.Map<Tenant>(row);
         }
 
         public bool Create(Tenant tenant)
         {
             object[] values = {
-  
+
                 tenant.name,
                 tenant.email,
                 tenant.phoneNumber,
                 tenant.advancePayment,
-              
-                
+
+
             };
             return DataProvider.INSTANCE.ExecuteData("Tenant_Create", values);
         }
 
         public bool DeleteById(int id)
         {
-            return DataProvider.INSTANCE.ExecuteData("Tenant_DeleteById", new object[] {id});
+            return DataProvider.INSTANCE.ExecuteData("Tenant_DeleteById", new object[] { id });
         }
 
         public bool EditById(int id, Tenant tenant)
         {
             object[] values = {
-                id,                
+                id,
                 tenant.name,
                 tenant.email,
                 tenant.phoneNumber,
                 tenant.advancePayment,
-             
+
             };
             return DataProvider.INSTANCE.ExecuteData("Tenant_EditById", values);
         }

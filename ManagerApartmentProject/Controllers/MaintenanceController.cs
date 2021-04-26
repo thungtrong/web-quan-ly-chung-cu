@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace ManagerApartmentProject.Controllers
 {
-
+    [Authorize]
     public class MaintenanceController : Controller
     {
         private readonly ILogger<MaintenanceController> _logger;

@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
-using ManagerApartmentProject;
-using Microsoft.AspNetCore.Mvc.Rendering;
+
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManagerAparmentProject.Controllers
 {
+    [Authorize]
     public class ApartmentController : Controller
     {
 

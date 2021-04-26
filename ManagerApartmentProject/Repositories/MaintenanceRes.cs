@@ -7,6 +7,14 @@ using ManagerApartmentProject.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerApartmentProject.Repositories{
+    public interface IMaintenanceRes
+    {
+        List<Maintenance> GetAll();
+        Maintenance GetById(int id);
+        bool EditById(int id, Maintenance maintenance);
+        bool DeleteById(int id);
+        bool Create(Maintenance maintenance, int creatorId);
+    }
     public class MaintenanceRes : IMaintenanceRes
     {
         private readonly Func<DataRow, Maintenance> _func;

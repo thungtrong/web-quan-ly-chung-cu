@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerApartmentProject.Models
@@ -15,7 +16,7 @@ namespace ManagerApartmentProject.Models
         [DisplayName("Amount")]
         public int amount { get; set; } = default(int);
         [DisplayName("Create Time")]
-        
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime dateCreate { get; set; } = DateTime.Now;
         [DisplayName("Status")]
         public int status { get; set; }

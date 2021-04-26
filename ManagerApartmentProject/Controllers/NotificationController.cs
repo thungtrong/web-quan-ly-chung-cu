@@ -6,9 +6,11 @@ using System;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManagerApartmentProject.Controllers
 {
+    [Authorize]
     public class NotificationController : Controller
     {
         private readonly INotificationRes _notificationRes;

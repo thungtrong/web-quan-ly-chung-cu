@@ -5,12 +5,13 @@ using CAIT.SQLHelper;
 using ManagerApartmentProject.Models;
 namespace ManagerApartmentProject.Const
 {
-    public class DataProvider 
+    public class DataProvider
     {
-        public static SQLCommand INSTANCE {get; private set; }
+        public static SQLCommand INSTANCE { get; private set; }
         public static int MAXROW { get; internal set; }
 
-        public static void AddInstance(string connectionString) {
+        public static void AddInstance(string connectionString)
+        {
             INSTANCE = new SQLCommand(connectionString);
             MAXROW = 10;
         }
@@ -47,8 +48,10 @@ namespace ManagerApartmentProject.Const
         /// <param name="func">Func mapping DataRow to T</param>
         /// <typeparam name="T">Type of instance</typeparam>
         /// <returns>Object Type T</returns>
-        public static T GetObjectByIdFrom<T>(string proceduceName, int id, Func<DataRow, T> func){
-            if (id > 0){
+        public static T GetObjectByIdFrom<T>(string proceduceName, int id, Func<DataRow, T> func)
+        {
+            if (id > 0)
+            {
                 DataTable dt = DataProvider.INSTANCE
                                             .Select(
                                                 proceduceName,
@@ -61,6 +64,23 @@ namespace ManagerApartmentProject.Const
             }
 
             return default(T);
+        }
+
+        public static PersonModel GetPersonByValuesFrom(
+            string proceduceName,
+            object[] values)
+        {
+            
+            DataTable dt = DataProvider.INSTANCE
+                                        .Select(
+                                            proceduceName,
+                                            values);
+
+            if (DataProvider.INSTANCE.errorCode == 0 && dt.Rows.Count > 0)
+            {
+                return SQLCommand.Map<PersonModel>(dt.Rows[0]);
+            }
+            return default(PersonModel);
         }
     }
 }

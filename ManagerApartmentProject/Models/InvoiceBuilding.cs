@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ManagerApartmentProject.Models{
     public class InvoiceBuilding {
@@ -7,6 +8,7 @@ namespace ManagerApartmentProject.Models{
         [DisplayName("Title")]
         public string title { get; set; }
         [DisplayName("Date Create")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime dateCreate { get; set; } = DateTime.Now;
         [DisplayName("Amount")]
         public int amount { get; set; }

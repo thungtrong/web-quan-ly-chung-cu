@@ -32,7 +32,7 @@ namespace ManagerApartmentProject
                     .AddCookie("AuthCookie", config =>
                     {  
                         config.Cookie.Name = "Auth.Cookie";
-                        config.LoginPath = "/Home/Login";
+                        config.LoginPath = "/Auth/Login";
                         config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                     });
 
@@ -47,19 +47,21 @@ namespace ManagerApartmentProject
             // End Cau hinh phan quyen
 
             // Add service for Respositories
-            services.AddTransient<IApartmentRes, ApartmentRes>();
-            services.AddTransient<IFloorRes, FloorRes>();
-            services.AddTransient<IEquipmentRes, EquipmentRes>();
-            services.AddSingleton<INotificationRes, NotificationRes>();
-            services.AddTransient<IMaintenanceRes, MaintenanceRes>();
-            services.AddTransient<IInvoiceBuildingRes, InvoiceBuildingRes>();
-            services.AddTransient<IInvoiceApartmentRes, InvoiceApartmentRes>();
-            services.AddTransient<IEmployeeRes, EmployeeRes>(); 
-            services.AddTransient<ITenantRes, TenantRes>(); 
+            services.AddScoped<IApartmentRes, ApartmentRes>();
+            services.AddScoped<IFloorRes, FloorRes>();
+            services.AddScoped<IEquipmentRes, EquipmentRes>();
+            services.AddScoped<INotificationRes, NotificationRes>();
+            services.AddScoped<IMaintenanceRes, MaintenanceRes>();
+            services.AddScoped<IInvoiceBuildingRes, InvoiceBuildingRes>();
+            services.AddScoped<IInvoiceApartmentRes, InvoiceApartmentRes>();
+            services.AddScoped<IEmployeeRes, EmployeeRes>(); 
+            services.AddScoped<ITenantRes, TenantRes>(); 
+            services.AddScoped<IAccountRes, AccountRes>();
             //  End add service for Respositories
             
             DataProvider.AddInstance(Configuration.GetConnectionString("DefaultConnection"));
-            ConstValue.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            
+            // ConstValue.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
@@ -85,7 +87,6 @@ namespace ManagerApartmentProject
             app.UseHttpsRedirection();
 
             // Who are you?
-            // app.UseSession();
             app.UseAuthentication();
             // are you allowed?
             app.UseAuthorization();
@@ -101,6 +102,10 @@ namespace ManagerApartmentProject
                 routes.MapRoute(
                     name: "notification",
                     template: "{controller=Notification}/{action=Index}/{pageAll?}/{pageMy}"
+                );
+                routes.MapRoute(
+                    name: "login",
+                    template: "{controller=Auth}/{action=Login}"
                 );
             });
 

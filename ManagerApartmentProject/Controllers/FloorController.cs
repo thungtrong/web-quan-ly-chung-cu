@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using ManagerApartmentProject.Repositories;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ManagerAparmentProject.Controllers
 {
+    [Authorize]
     public class FloorController : Controller
     {
 

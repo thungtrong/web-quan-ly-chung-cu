@@ -8,6 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ManagerApartmentProject.Repositories
 {
+    public interface IEmployeeRes
+    {
+        List<Employee> GetAll();
+        Employee GetById(int id);
+        bool EditById(int id, Employee employee);
+        bool DeleteById(int id);
+        bool Create(Employee employee);
+    }
     public class EmployeeRes : IEmployeeRes
     {
         private readonly Func<DataRow, Employee> _func;

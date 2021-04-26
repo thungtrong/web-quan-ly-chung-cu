@@ -6,13 +6,14 @@ using CAIT.SQLHelper;
 using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace ManagerApartmentProject.Controllers
 {
-
+    [Authorize]
     public class InvoiceApartmentController : Controller
     {
         private readonly ILogger<InvoiceApartment> _logger;
@@ -50,7 +51,7 @@ namespace ManagerApartmentProject.Controllers
         {
             return RunApi(
                 id,
-                () => _invoiceApartmentRes.UpdateById(id, model)
+                () => _invoiceApartmentRes.UpdateByIdAsync(id, model)
             );
         } 
 
@@ -122,6 +123,7 @@ namespace ManagerApartmentProject.Controllers
             }
             
             bool result = func();
+            
             return JsonSerializer.Serialize(
                         new {
                         status = result,

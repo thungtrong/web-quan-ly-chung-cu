@@ -85,7 +85,7 @@ BEGIN
 	  ,[invoice_of] as [invoiceOf]
 	FROM [dbo].[InvoiceApartment] inner join [Tenant] on [invoice_of] = [Tenant].ID
 		Join work_tmp on [InvoiceApartment].[ID] = [detail_of]
-	Order by [date_release] DESC, [InvoiceApartment].[ID]
+	Order by [date_release] DESC DESC, [InvoiceApartment].[ID]
 END
 
 GO

@@ -55,7 +55,7 @@ BEGIN
 		,[date_release]
 		,[Admin].[name] as creator
 	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
-	Order by date_release DESC
+	Order by [date_release] DESC, [ID] DESC
 END
 
 GO
@@ -86,7 +86,7 @@ Begin
 		,[Admin].[name] as creator
 	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
 	Where [Admin].ID = @creatorId
-	Order by date_release DESC
+	Order by [date_release] DESC, [ID] DESC
 end
 
 GO
@@ -99,7 +99,7 @@ BEGIN
 	
 	With work_tmp as (
 		SELECT 
-		ROW_NUMBER() Over (Order by [date_release])  as row#
+		ROW_NUMBER() Over(Order by [date_release] DESC, [Notification].[ID] DESC)  as row#
 		,[Notification].[ID] as ID
 		,[title]
 		,[content]
@@ -114,7 +114,7 @@ BEGIN
 		,creator
 	From work_tmp
 	Where row# >= @start and row# < @end
-	Order by date_release DESC
+	Order by row#
 END
 GO
 
@@ -126,7 +126,7 @@ AS
 Begin
 	WITH work_tmp as (
 		SELECT 
-			ROW_NUMBER() Over (Order by [date_release])  as row#
+			ROW_NUMBER() Over(Order by [date_release] DESC , [Notification].[ID] DESC)  as row#
 			,[Notification].[ID] as ID
 			,[title]
 			,[content]
@@ -142,7 +142,7 @@ Begin
 		,creator
 	From work_tmp
 	Where row# >= @start and row# < @end
-	Order by date_release DESC
+	Order by row#
 end
 
 GO
@@ -187,7 +187,7 @@ BEGIN
 		,[date_release]
 		,[Admin].[name] as creator
 	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
-	Order by date_release DESC
+	Order by [date_release] DESC, [ID] DESC
 END
 
 GO
@@ -217,7 +217,7 @@ Begin
 		,[Admin].[name] as creator
 	FROM [dbo].[Notification] join [Admin] on [Notification].creator = [Admin].ID
 	Where [Admin].ID = @creatorId
-	Order by date_release DESC
+	Order by [date_release] DESC, [ID] DESC
 end
 
 GO
@@ -230,7 +230,7 @@ BEGIN
 	
 	With work_tmp as (
 		SELECT 
-		ROW_NUMBER() Over (Order by [date_release])  as row#
+		ROW_NUMBER() Over(Order by [date_release] DESC, [Notification].[ID] DESC)  as row#
 		,[Notification].[ID] as ID
 		,[title]
 		,[date_release]
@@ -243,7 +243,7 @@ BEGIN
 		,creator
 	From work_tmp
 	Where row# >= @start and row# < @end
-	Order by date_release DESC
+	Order by row#
 
 END
 GO
@@ -256,7 +256,7 @@ AS
 Begin
 	WITH work_tmp as (
 		SELECT 
-			ROW_NUMBER() Over (Order by [date_release])  as row#
+			ROW_NUMBER() Over(Order by [date_release] DESC, [Notification].[ID] DESC)  as row#
 			,[Notification].[ID] as ID
 			,[title]
 			,[date_release]
@@ -270,7 +270,7 @@ Begin
 		,creator
 	From work_tmp
 	Where row# >= @start and row# < @end
-	Order by date_release DESC
+	Order by row# DESC
 end
 
 GO

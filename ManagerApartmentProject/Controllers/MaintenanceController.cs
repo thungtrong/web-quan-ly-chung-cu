@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace ManagerApartmentProject.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AdminOrGreater")]
     public class MaintenanceController : Controller
     {
         private readonly ILogger<MaintenanceController> _logger;
@@ -34,7 +35,7 @@ namespace ManagerApartmentProject.Controllers
             if (maintenance == null){
                 return View(maintenance);
             }
-            var creatorId = Convert.ToInt32(Request.Cookies["Id"]);
+            var creatorId = int.Parse(User.FindFirst("Id").Value);
             bool result = _maintenanceRes.Create(maintenance, creatorId);
             if (result){
                 return RedirectToAction("Index");
@@ -73,11 +74,14 @@ namespace ManagerApartmentProject.Controllers
 
             return View("Update",maintenance);
         }
+
+        [Authorize(Policy = "SuperAdmin")]
         public IActionResult Delete(int id){
             Maintenance maintenance = _maintenanceRes.GetById(id);
             return View(maintenance);
         }
         
+        [Authorize(Policy = "SuperAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id, Maintenance maintenance){

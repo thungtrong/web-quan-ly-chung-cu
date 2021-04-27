@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace ManagerApartmentProject.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AdminOrGreater")]
     public class EmployeeController : Controller
     {
         private readonly ILogger<EmployeeController> _logger;
@@ -67,7 +68,7 @@ namespace ManagerApartmentProject.Controllers
             bool result = _employeeRes.EditById(id, employee);
             if (result)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction($"Detail/{id}");
             }
 
             return View("Update",employee);
@@ -77,6 +78,7 @@ namespace ManagerApartmentProject.Controllers
             return View(employee);
         }
         
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id, Employee employee){

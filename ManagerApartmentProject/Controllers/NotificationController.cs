@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ManagerApartmentProject.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AllowedAll")]
     public class NotificationController : Controller
     {
         private readonly INotificationRes _notificationRes;
@@ -20,14 +21,14 @@ namespace ManagerApartmentProject.Controllers
         {
             _notificationRes = notificationRes;
             _logger = logger;
-            
+
             // _MAXROW = 10;
         }
 
         [HttpGet("[controller]/[action]/{pageAll?}/{pageMy?}")]
         public async Task<IActionResult> Index(int? pageAll, int? pageMy)
         {
-            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
+            var _creator = int.Parse(User.FindFirst("Id").Value);
 
             if (pageAll == null)
             {
@@ -38,26 +39,45 @@ namespace ManagerApartmentProject.Controllers
                 pageMy = 1;
             }
 
-            List<Notification> noti1 = await Task<List<Notification>>.Run(
+            var taskNotifyAll = Task<List<Notification>>.Run(
                 () => _notificationRes.GetByPage(pageAll)
             );
-            int pageCount1 = await Task<int>.Run(() => _notificationRes.GetPageCount(0));
+            var taskPageCountAll = Task<int>.Run(() => _notificationRes.GetPageCount(0));
+            
+           
+            List<Notification> lstNotifyMy = new List<Notification>();
+            int pageCountMy = 0;
 
-            List<Notification> noti2 = await Task<List<Notification>>.Run(
-                () => _notificationRes.GetByCreatorIdPage(_creator, pageMy)
-            );
-            int pageCount2 = await Task<int>.Run(() => _notificationRes.GetPageCount(_creator));
+            if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+            {    
+                var taskNotify2 = Task<List<Notification>>.Run(
+                    () => _notificationRes.GetByCreatorIdPage(_creator, pageMy)
+                );
+                var taskPageCount2 = Task<int>.Run(() => _notificationRes.GetPageCount(_creator));
+                
+                lstNotifyMy = await taskNotify2;
+                pageCountMy = await taskPageCount2;
+            }
+
+            var lstNotifyAll = await taskNotifyAll;
+            int pageCountAll = await taskPageCountAll;
 
             NotificationViewModel model = new NotificationViewModel
             {
-                allNotifications = noti1,
-                myNotifications = noti2,
+                allNotifications = lstNotifyAll,
                 allNotificationsStart = (int)pageAll,
-                myNotificationsStart = (int)pageMy,
-                allNotificationsEnd = Math.Min((int)pageAll + 5, pageCount1),
-                myNotificationsEnd = Math.Min((int)pageMy + 5, pageCount2)
-            };
+                allNotificationsEnd = Math.Min((int)pageAll + 5, pageCountAll),
 
+                myNotifications = lstNotifyMy,
+                myNotificationsStart = (int)pageMy,
+                myNotificationsEnd = Math.Min((int)pageMy + 5, pageCountMy)
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var model = await Task<Notification>.Run(() => _notificationRes.GetById(id));
             return View(model);
         }
 
@@ -69,8 +89,8 @@ namespace ManagerApartmentProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Notification model)
         {
-            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
-            
+            var _creator = int.Parse(User.FindFirst("Id").Value);
+
             bool result = await Task<bool>.Run(() => _notificationRes.Create(model, _creator));
             if (result)
             {
@@ -81,8 +101,8 @@ namespace ManagerApartmentProject.Controllers
 
         public async Task<IActionResult> Update(int Id)
         {
-            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
-            
+            var _creator = int.Parse(User.FindFirst("Id").Value);
+
             var model = await Task<Notification>.Run(() => _notificationRes.GetById(Id));
 
             return View(model);
@@ -104,20 +124,18 @@ namespace ManagerApartmentProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Detail(int id)
-        {
-            var model = await Task<Notification>.Run(() => _notificationRes.GetById(id));
-            return View(model);
-        }
-        
+        [Authorize(Policy = "SuperAdmin")]
         [Route("api/Notification/Delete/{page}")]
-        public async Task<string> Delete(int id){
+        public async Task<string> Delete(int id)
+        {
             bool result = await Task<bool>.Run(() => _notificationRes.DeleteById(id));
             string message = "Error";
-            if (result) {
+            if (result)
+            {
                 message = "Success";
             }
-            return JsonSerializer.Serialize(new {
+            return JsonSerializer.Serialize(new
+            {
                 result = result,
                 message = message
             });
@@ -126,8 +144,9 @@ namespace ManagerApartmentProject.Controllers
         [Route("Notification/api/GetPageAll/{page}")]
         public async Task<string> GetPageAll(int page)
         {
-            
-            if (page <= 0){
+
+            if (page <= 0)
+            {
                 return JsonSerializer.Serialize(new
                 {
                     status = 0,
@@ -147,7 +166,8 @@ namespace ManagerApartmentProject.Controllers
             {
                 status = 1,
                 notifications = lst,
-                pagination = new {
+                pagination = new
+                {
                     start = page,
                     end = Math.Min(pageCount, page + 5)
                 }
@@ -158,10 +178,11 @@ namespace ManagerApartmentProject.Controllers
 
         [Route("Notification/api/GetPageMy/{page}")]
         public async Task<string> GetPageMy(int page)
-        {   
-            var _creator = int.Parse(HttpContext.Request.Cookies["Id"]);
-            
-            if (page <= 0){
+        {
+            var _creator = int.Parse(User.FindFirst("Id").Value);
+
+            if (page <= 0)
+            {
                 return JsonSerializer.Serialize(new
                 {
                     status = 0,
@@ -181,7 +202,8 @@ namespace ManagerApartmentProject.Controllers
             {
                 status = 1,
                 notifications = lst,
-                pagination = new {
+                pagination = new
+                {
                     start = page,
                     end = Math.Min(pageCount, page + 5)
                 }

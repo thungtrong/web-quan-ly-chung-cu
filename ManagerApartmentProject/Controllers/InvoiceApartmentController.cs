@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace ManagerApartmentProject.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AllowedAll")]
     public class InvoiceApartmentController : Controller
     {
         private readonly ILogger<InvoiceApartment> _logger;
@@ -27,7 +28,25 @@ namespace ManagerApartmentProject.Controllers
         public IActionResult Index()
         {
             // Check quyen sau do lua chon cach thuc load
-            List<InvoiceApartment> lst = _invoiceApartmentRes.GetAll();
+            List<InvoiceApartment> lst = new List<InvoiceApartment>();
+            if (User.IsInRole("Tenant"))
+            {
+                try
+                {
+                    int tenantId = int.Parse(User.FindFirst("Id").Value);
+                    lst = _invoiceApartmentRes.GetAllByTenantId(tenantId);
+                    return View(lst);
+
+                } catch (Exception e) 
+                {
+                    ViewBag.Message = e.Message;
+                    Redirect("/Error/404"); // Sua ma code lai sau
+                }
+            }
+            else
+            {
+                lst = _invoiceApartmentRes.GetAll();
+            }
             return View(lst);
         }
 
@@ -37,6 +56,7 @@ namespace ManagerApartmentProject.Controllers
             return View(model);
         }
         
+        [Authorize(Policy = "AdminOrGreater")]
         public IActionResult Update(int id)
         {
             
@@ -46,6 +66,7 @@ namespace ManagerApartmentProject.Controllers
             return View(model);
         }
 
+        [Authorize(Policy = "AdminOrGreater")]
         [HttpPost]
         public string UpdateConfirm(int id, InvoiceApartmentViewModel model)
         {
@@ -55,6 +76,7 @@ namespace ManagerApartmentProject.Controllers
             );
         } 
 
+        [Authorize(Policy = "AdminOrGreater")]
         public IActionResult Create()
         {
             ViewBag.Tenants = GetTenantsForSection(0);
@@ -75,6 +97,7 @@ namespace ManagerApartmentProject.Controllers
             return new SelectList(tenants, "ID", "name", selected);
         }
         
+        [Authorize(Policy = "AdminOrGreater")]
         [HttpPost]
         public string CreateConfirm(int id, InvoiceApartmentViewModel model)
         {
@@ -84,6 +107,7 @@ namespace ManagerApartmentProject.Controllers
             );
         }
 
+        [Authorize(Policy = "SuperAdmin")]
         public IActionResult Delete(int id)
         {
             if (id == 0)
@@ -94,7 +118,7 @@ namespace ManagerApartmentProject.Controllers
             return View(model);
         }
 
-        
+        [Authorize(Policy = "SuperAdmin")]
         public string DeleteConfirm(int id)
         {
             return RunApi(

@@ -19,6 +19,7 @@
 </div>
 <!-- Content: List notification -->
 <div class="tab-content">
+    <!-- Hiển thị tất cả thông báo -->
     <div id="all" class="tab-pane active">
         @await Html.PartialAsync(
             "_RenderNotifications.cshtml", 
@@ -34,34 +35,34 @@
                 name = "of-all"
             }
         )
-
     </div>
     
-    <div id="my" class="tab-pane" data-min-page="@Model.">
-        <div class="tab-pane-header">
-            <a type="button" class="btn btn-default btn-sm" asp-controller="Notification" asp-action="Create">
-                <span class="glyphicon glyphicon-plus"></span>
-                Create
-            </a>
+    <!-- Hiển thị thông báo do chính admin đó tạo -->
+    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+    {
+        <div id="my" class="tab-pane" data-min-page="@Model.">
+            <div class="tab-pane-header">
+                <a type="button" class="btn btn-default btn-sm" asp-controller="Notification" asp-action="Create">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Create
+                </a>
+            </div>
+            @await Html.PartialAsync(
+                "_RenderNotifications.cshtml", 
+                Model.myNotifications,
+                new ViewDataDictionary(ViewData){{"auth", true}}
+            )
+            
+            @await Html.PartialAsync(
+                "_RenderPagination.cshtml",
+                new {
+                    start = Model.myNotificationsStart,
+                    end = Model.myNotificationsEnd,
+                    name = "of-my"
+                }
+            )
         </div>
-        @await Html.PartialAsync(
-            "_RenderNotifications.cshtml", 
-            Model.myNotifications,
-            new ViewDataDictionary(ViewData){{"auth", true}}
-        )
-
-        @await Html.PartialAsync(
-            "_RenderPagination.cshtml",
-            new {
-                start = Model.myNotificationsStart,
-                end = Model.myNotificationsEnd,
-                name = "of-my"
-            }
-        )
-
-
-    </div>
-    
+    }
 </div>
 
 <!-- Modal -->

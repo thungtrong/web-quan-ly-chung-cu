@@ -13,7 +13,9 @@
             @if ((bool) @ViewData["auth"]){
                 <div class="action-group text-right">
                     <a asp-controller="Notification" asp-action="Update" asp-route-id="@notify.ID">Update</a>
-                    <a data-toggle="modal" data-target="#modal">Delete</a>
+                    @if (User.IsInRole("SuperAdmin")){
+                        <a data-toggle="modal" data-target="#modal">Delete</a>
+                    }
                 </div>
             }
         </li>

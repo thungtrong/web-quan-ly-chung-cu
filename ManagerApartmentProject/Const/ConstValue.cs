@@ -10,5 +10,6 @@ namespace ManagerApartmentProject.Const
     {
         public static string ConnectionString;
 
+        public static string[] Roles { get; } = { "SuperAdmin", "Admin", "Employee", "Tenant"};
     }
 }

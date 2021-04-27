@@ -32,11 +32,13 @@
                     <a asp-action="Update" asp-route-id="@item.ID" class="btn btn-danger btn-sm btn-small">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-warning btn-sm btn-small">
-                        <i class="fas fa-trash"></i>
-                    </a>
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-warning btn-sm btn-small">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    }
                 </td>
-
             </tr>
         }
     </tbody>

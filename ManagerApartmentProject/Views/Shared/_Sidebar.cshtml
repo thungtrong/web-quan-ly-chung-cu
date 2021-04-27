@@ -1,59 +1,76 @@
+@{bool authority = User.IsInRole("SuperAdmin") || User.IsInRole("Admin");}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item nav-category">
-            <a class="nav-link" asp-controller="Home" asp-action="Index" >
-                <i class="fas fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
+        @if (authority)
+        {
+            <li class="nav-item nav-category">
+                <a class="nav-link" asp-controller="Home" asp-action="Index" >
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Floor" asp-action="Index">
+                    <i class="fas fa-coffee"></i>
+                    <span class="menu-title">Tầng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="apartment" asp-controller="Apartment" asp-action="Index">
+                    <i class="fas fa-home"></i>
+                    <span class="menu-title">Phòng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Equipment" asp-action="Index">
+                    <i class="fas fa-th"></i>
+                    <span class="menu-title">Thiết bị</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Tenant" asp-action="Index">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-title">Dân cư</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " asp-controller="Employee" asp-action="Index">
+                    <i class="fas fa-user-friends"></i>
+                    <span class="menu-title">Nhân viên</span>
+                </a>
+            </li>
+        }
+        
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Floor" asp-action="Index">
-                <i class="fas fa-coffee"></i>
-                <span class="menu-title">Tầng</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="apartment" asp-controller="Apartment" asp-action="Index">
-                <i class="fas fa-home"></i>
-                <span class="menu-title">Phòng</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Equipment" asp-action="Index">
-                <i class="fas fa-th"></i>
-                <span class="menu-title">Thiết bị</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Tenant" asp-action="Index">
-                <i class="fas fa-users"></i>
-                <span class="menu-title">Dân cư</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " asp-controller="Employee" asp-action="Index">
+            <a class="nav-link" asp-controller="EmployeeForm" asp-action="Index">
                 <i class="fas fa-user-friends"></i>
-                <span class="menu-title">Nhân viên</span>
+                <span class="menu-title">Đơn của nhân viên</span>
             </a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" id="invoice-apartment" asp-controller="InvoiceApartment" asp-action="Index">
                 <i class="fas fa-file-invoice"></i>
                 <span class="menu-title">Thanh toán</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="InvoiceBuilding" asp-action="Index">
-                <i class="fas fa-money-bill-wave"></i>
-                <span class="menu-title">Chi tiêu</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Maintenance" asp-action="Index">
-                <i class="fas fa-wrench"></i>
-                <span class="menu-title">Bảo trì</span>
-            </a>
-        </li>
+        
+
+        @if (authority)
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="InvoiceBuilding" asp-action="Index">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span class="menu-title">Chi tiêu</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Maintenance" asp-action="Index">
+                    <i class="fas fa-wrench"></i>
+                    <span class="menu-title">Bảo trì</span>
+                </a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="fas fa-hand-paper"></i>

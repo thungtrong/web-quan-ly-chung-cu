@@ -5,7 +5,7 @@ using CAIT.SQLHelper;
 using ManagerApartmentProject.Models;
 namespace ManagerApartmentProject.Const
 {
-    public class DataProvider
+    public static class DataProvider
     {
         public static SQLCommand INSTANCE { get; private set; }
         public static int MAXROW { get; internal set; }

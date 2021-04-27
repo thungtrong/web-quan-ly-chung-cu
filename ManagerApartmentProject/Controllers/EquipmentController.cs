@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ManagerAparmentProject.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AdminOrGreater")]
     public class EquipmentController : Controller
     {
 
@@ -95,7 +96,8 @@ namespace ManagerAparmentProject.Controllers
             }
 
         }
-
+        
+        [Authorize(Policy = "SuperAdmin")]
         // GET: Equipment/Delete/5
         public IActionResult Delete(int id)
         {
@@ -103,9 +105,11 @@ namespace ManagerAparmentProject.Controllers
                 return RedirectToAction("Index");
             }
             Equipment DelEquipment = _equipmentRes.GetByID(id);
+            
             return View(DelEquipment);
         }
-
+        
+        [Authorize(Policy = "SuperAdmin")]
         // POST: Equipment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -35,7 +35,7 @@ namespace ManagerApartmentProject
                         config.Cookie.Name = "Auth.Cookie";
                         config.LoginPath = "/Auth/Login";
                         config.ExpireTimeSpan = TimeSpan.FromMinutes(120);
-                        config.AccessDeniedPath = "/Error/ErrorPage/403";
+                        config.AccessDeniedPath = "/Error/403";
                     });
 
             services.AddAuthorization(config =>
@@ -50,11 +50,15 @@ namespace ManagerApartmentProject
                     .Build();
                 #endregion                
                 
-                config.AddPolicy("DeleteActionPolicy", policy => policy.RequireRole("SuperAdmin"));
+                config.AddPolicy("SuperAdmin", policy => policy.RequireRole("SuperAdmin"));
 
-                config.AddPolicy("UpdateActionPolicy", policy => policy.RequireRole("SuperAdmin", "Admin"));
+                config.AddPolicy("AdminOrGreater", policy => policy.RequireRole("SuperAdmin", "Admin"));
                 
-                // config.AddPolicy("ViewAndCreate", )
+                config.AddPolicy("Employee", policy => policy.RequireRole("Employee"));
+
+                config.AddPolicy("Tenant", policy => policy.RequireRole("Tenant"));
+
+                config.AddPolicy("AllowedAll", policy => policy.RequireRole("SuperAdmin", "Admin", "Employee", "Admin"));
             });
             // End Cau hinh phan quyen
 
@@ -95,10 +99,10 @@ namespace ManagerApartmentProject
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithRedirects("~/Error/ErrorPage/{0}");
+            app.UseStatusCodePagesWithRedirects("~/Error/{0}");
 
             app.UseHttpsRedirection();
-
+            app.UseSession();
             // Who are you?
             app.UseAuthentication();
             // are you allowed?
@@ -108,21 +112,19 @@ namespace ManagerApartmentProject
             // app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "error",
-                    template: "Error/ErrorPage/{code}"
-                );
+                
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
                 );
+
                 routes.MapRoute(
                     name: "notification",
-                    template: "{controller=Notification}/{action=Index}/{pageAll?}/{pageMy}"
+                    template: "Notification/Index/{pageAll?}/{pageMy}"
                 );
                 routes.MapRoute(
                     name: "login",
-                    template: "{controller=Auth}/{action=Login}"
+                    template: "Auth/{action=Login}"
                 );
                 
             });

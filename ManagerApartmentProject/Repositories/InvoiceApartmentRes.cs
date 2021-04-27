@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CAIT.SQLHelper;
 using ManagerApartmentProject.Const;
@@ -15,6 +16,7 @@ namespace ManagerApartmentProject.Repositories
         bool UpdateByIdAsync(int id, InvoiceApartmentViewModel model);
         bool Create(int tenantId, InvoiceApartmentViewModel model);
         bool DeleteById(int id);
+        List<InvoiceApartment> GetAllByTenantId(int tenantId);
     }
     
     public class InvoiceApartmentRes : IInvoiceApartmentRes
@@ -146,6 +148,15 @@ namespace ManagerApartmentProject.Repositories
             }
 
             return result;
+        }
+
+        public List<InvoiceApartment> GetAllByTenantId(int tenantId)
+        {
+            return DataProvider.GetListFrom<InvoiceApartment>(
+                "InvoiceApartment_GetAllByTenantId",
+                new object[] { tenantId },
+                _funcInvoice
+            );
         }
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ManagerAparmentProject.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "AdminOrGreater")]
     public class FloorController : Controller
     {
 
@@ -22,6 +23,7 @@ namespace ManagerAparmentProject.Controllers
         public IActionResult Index()
         {
             var lstFloor = _floorRes.GetAll();
+            
             return View(lstFloor);
         }
 
@@ -29,6 +31,7 @@ namespace ManagerAparmentProject.Controllers
         public IActionResult Detail(int id)
         {
             Floor apartment = _floorRes.GetByID(id);
+
             return View(apartment);
         }
 
@@ -36,6 +39,7 @@ namespace ManagerAparmentProject.Controllers
         public IActionResult Create()
         {
             var apartment = new Floor();
+
             return View(apartment);
         }
 
@@ -73,6 +77,7 @@ namespace ManagerAparmentProject.Controllers
                 return RedirectToAction("Index");
             }
             Floor UpdateFloor = _floorRes.GetByID(id);
+
             return View(UpdateFloor);
         }
 
@@ -96,6 +101,7 @@ namespace ManagerAparmentProject.Controllers
 
         }
 
+        [Authorize(Policy = "SuperAdmin")]
         // GET: Floor/Delete/5
         public IActionResult Delete(int id)
         {
@@ -103,9 +109,11 @@ namespace ManagerAparmentProject.Controllers
                 return RedirectToAction("Index");
             }
             Floor DelFloor = _floorRes.GetByID(id);
+
             return View(DelFloor);
         }
-
+        
+        [Authorize(Policy = "SuperAdmin")]
         // POST: Floor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

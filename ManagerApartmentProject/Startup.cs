@@ -1,5 +1,6 @@
+using System.Net;
 using System;
-
+using System.Security.Claims;
 using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -33,16 +34,27 @@ namespace ManagerApartmentProject
                     {  
                         config.Cookie.Name = "Auth.Cookie";
                         config.LoginPath = "/Auth/Login";
-                        config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                        config.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+                        config.AccessDeniedPath = "/Error/ErrorPage/403";
                     });
 
             services.AddAuthorization(config =>
             {
-                // Add policy
+                #region default
+                // Add policy Defalaut
                 config.DefaultPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
+                    .RequireClaim("Id")
+                    .RequireClaim(ClaimTypes.Name)
+                    .RequireClaim(ClaimTypes.Email)
                     .Build();
-                // config.AddPolicy()
+                #endregion                
+                
+                config.AddPolicy("DeleteActionPolicy", policy => policy.RequireRole("SuperAdmin"));
+
+                config.AddPolicy("UpdateActionPolicy", policy => policy.RequireRole("SuperAdmin", "Admin"));
+                
+                // config.AddPolicy("ViewAndCreate", )
             });
             // End Cau hinh phan quyen
 
@@ -83,6 +95,7 @@ namespace ManagerApartmentProject
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithRedirects("~/Error/ErrorPage/{0}");
 
             app.UseHttpsRedirection();
 
@@ -96,6 +109,10 @@ namespace ManagerApartmentProject
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "error",
+                    template: "Error/ErrorPage/{code}"
+                );
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
                 );
@@ -107,6 +124,7 @@ namespace ManagerApartmentProject
                     name: "login",
                     template: "{controller=Auth}/{action=Login}"
                 );
+                
             });
 
         }

@@ -63,6 +63,7 @@ namespace ManagerApartmentProject
             // End Cau hinh phan quyen
 
             // Add service for Respositories
+            services.AddScoped<IAdminRes, AdminRes>();
             services.AddScoped<IApartmentRes, ApartmentRes>();
             services.AddScoped<IFloorRes, FloorRes>();
             services.AddScoped<IEquipmentRes, EquipmentRes>();

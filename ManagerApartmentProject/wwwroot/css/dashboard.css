@@ -1,0 +1,117 @@
+.dashboard-card
+{
+    position: relative;
+}
+.dashboard-card .card
+{
+    padding: 0;
+    opacity: 0.8;
+}
+.dashboard-card .card:hover
+{
+    opacity: 1;
+}
+a.card-link 
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 120px;
+    padding: 20px;
+    font-size: 2em;
+    background: transparent;
+    color: whitesmoke;
+    z-index: 3;
+
+}
+
+.dashboard-card
+ i
+{
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    font-size: 6em;
+}
+
+.dashboard-card:nth-child(1) .card
+{
+    background: red;
+}
+.dashboard-card:nth-child(1) .card i
+{
+    color: #c30c0c;
+}
+
+.dashboard-card:nth-child(2) .card
+{
+    background: #ff6a00;
+}
+.dashboard-card:nth-child(2) .card i
+{
+    color: #c3500c;
+}
+.dashboard-card:nth-child(3) .card
+{
+    background: #0f29df;
+}
+.dashboard-card:nth-child(3) .card i
+{
+    color: #0b09a3;
+}
+.dashboard-card:nth-child(4) .card
+{
+    background: #e120ed;
+}
+.dashboard-card:nth-child(4) .card i
+{
+    color: #8220ed;
+}
+.dashboard-card:nth-child(5) .card
+{
+    background: #20db2efa;
+}
+.dashboard-card:nth-child(5) .card i
+{
+    color: #ffe63b;
+}
+.dashboard-card:nth-child(6) .card
+{
+    background: #00adff;
+}
+.dashboard-card:nth-child(6) .card i
+{
+    color: #7157d9;
+}
+.dashboard-card:nth-child(7) .card
+{
+    background: #2700ff;
+}
+.dashboard-card:nth-child(7) .card i
+{
+    color: #170cc3;
+}
+.dashboard-card:nth-child(8) .card
+{
+    background: #9ee72b;
+}
+.dashboard-card:nth-child(8) .card i
+{
+    color: #8bc009;
+}
+.dashboard-card:nth-child(9) .card
+{
+    background: #1c5d5d;
+}
+.dashboard-card:nth-child(9) .card i
+{
+    color: #28787c;
+}
+.dashboard-card:nth-child(10) .card
+{
+    background: red;
+}
+.dashboard-card:nth-child(10) .card i
+{
+    color: #c30c0c;
+}

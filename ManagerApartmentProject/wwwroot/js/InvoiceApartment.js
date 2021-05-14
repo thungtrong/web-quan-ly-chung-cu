@@ -33,7 +33,14 @@ $(() => {
             // Lay Invoice
             let invoice = {"ID": id, "invoiceOf": invoiceOf};
             for (let tmp of invoiceG.find(".form-group input[id]")){
-                invoice[tmp.id] = tmp.value;
+                if (tmp.id == 'status')
+                {
+                    invoice[tmp.id] = tmp.checked;
+                }
+                else
+                {
+                    invoice[tmp.id] = tmp.value;
+                }
             }
             
             // Lay detail
@@ -65,7 +72,7 @@ $(() => {
         if (action == "DeleteConfirm") {
             num = $("#invoice input#ID").val();
         }
-            
+        
 
         let url = `/InvoiceApartment/${action}/${num}`;
         console.log(invoiceApartmentViewModel);

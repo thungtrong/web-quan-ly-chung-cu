@@ -13,7 +13,7 @@ namespace ManagerApartmentProject.Repositories
     {
         List<InvoiceApartment> GetAll();
         InvoiceApartmentViewModel GetById(int id);
-        bool UpdateByIdAsync(int id, InvoiceApartmentViewModel model);
+        bool UpdateById(int id, InvoiceApartmentViewModel model);
         bool Create(int tenantId, InvoiceApartmentViewModel model);
         bool DeleteById(int id);
         List<InvoiceApartment> GetAllByTenantId(int tenantId);
@@ -75,7 +75,7 @@ namespace ManagerApartmentProject.Repositories
                     );
         }
 
-        public bool UpdateByIdAsync(int id, InvoiceApartmentViewModel model)
+        public bool UpdateById(int id, InvoiceApartmentViewModel model)
         {
             bool result = UpdateInvoiceById(model.invoice);
             

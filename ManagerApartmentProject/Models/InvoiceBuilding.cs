@@ -9,7 +9,7 @@ namespace ManagerApartmentProject.Models{
         public string title { get; set; }
         [DisplayName("Date Create")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime dateCreate { get; set; } = DateTime.Now;
+        public DateTime dateCreate { get; set; }
         [DisplayName("Amount")]
         public int amount { get; set; }
         [DisplayName("Status")]

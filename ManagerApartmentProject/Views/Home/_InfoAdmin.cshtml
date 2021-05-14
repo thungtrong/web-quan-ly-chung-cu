@@ -1,0 +1,25 @@
+@model PersonModel
+
+
+@* @await Html.PartialAsync("_Form.cshtml", new {model = Model, disabled=true}) *@
+<form>
+    <div class="form-group">
+        <label asp-for="name"></label>
+        <input asp-for="name" disabled class="form-control" placeholder="Nhập tên căn hộ">
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="email"></label>
+        <input asp-for="email" disabled class="form-control" placeholder="Nhập tên căn hộ">
+    </div>
+    
+    
+    <div class="form-group">
+        <label asp-for="phoneNumber"></label>
+        <input asp-for="phoneNumber" disabled class="form-control" placeholder="Nhập tên căn hộ">
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-default" asp-action="Index">Back</button>
+    </div>
+</form>

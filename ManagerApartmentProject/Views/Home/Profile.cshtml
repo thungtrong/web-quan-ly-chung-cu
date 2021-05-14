@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Thông tin cá nhân";    
+}
+<h1>@ViewData["Title"]</h1>
+<hr>
+@if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+{
+    @await Html.PartialAsync("_InfoAdmin.cshtml", Model, null)
+}
+@if (User.IsInRole("Employee"))
+{
+    @await Html.PartialAsync("_InfoEmployee.cshtml", Model, null)
+}
+@if (User.IsInRole("Tenant"))
+{
+    @await Html.PartialAsync("_InfoTenant.cshtml", Model, null)
+}

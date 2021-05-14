@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ManagerApartmentProject.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "AllowedAll")]
+    // [Authorize(Policy = "AllowedAll")]
     public class NotificationController : Controller
     {
         private readonly INotificationRes _notificationRes;

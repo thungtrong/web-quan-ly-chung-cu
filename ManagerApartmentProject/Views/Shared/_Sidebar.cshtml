@@ -1,14 +1,14 @@
 @{bool authority = User.IsInRole("SuperAdmin") || User.IsInRole("Admin");}
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
+        <li class="nav-item nav-category">
+            <a class="nav-link" asp-controller="Home" asp-action="Index" >
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            </li>
         @if (authority)
         {
-            <li class="nav-item nav-category">
-                <a class="nav-link" asp-controller="Home" asp-action="Index" >
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Floor" asp-action="Index">
                     <i class="fas fa-coffee"></i>
@@ -18,7 +18,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="apartment" asp-controller="Apartment" asp-action="Index">
                     <i class="fas fa-home"></i>
-                    <span class="menu-title">Phòng</span>
+                    <span class="menu-title">Căn hộ</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -41,12 +41,6 @@
             </li>
         }
         
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="EmployeeForm" asp-action="Index">
-                <i class="fas fa-user-friends"></i>
-                <span class="menu-title">Đơn của nhân viên</span>
-            </a>
-        </li>
 
         <li class="nav-item">
             <a class="nav-link" id="invoice-apartment" asp-controller="InvoiceApartment" asp-action="Index">
@@ -64,6 +58,7 @@
                     <span class="menu-title">Chi tiêu</span>
                 </a>
             </li>
+            
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Maintenance" asp-action="Index">
                     <i class="fas fa-wrench"></i>
@@ -71,23 +66,13 @@
                 </a>
             </li>
         }
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <i class="fas fa-hand-paper"></i>
-                <span class="menu-title">Tương tác</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Notification" asp-action="Index"> Thông báo </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html"> Complain </a>
-                    </li>
 
-                </ul>
-            </div>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Notification" asp-action="Index">
+                <i class="fas fa-bell"></i>
+                <span class="menu-title">Thông Báo</span>
+            </a>
+            
         </li>
         
     </ul>

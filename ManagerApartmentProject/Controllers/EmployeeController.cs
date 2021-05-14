@@ -68,7 +68,7 @@ namespace ManagerApartmentProject.Controllers
             bool result = _employeeRes.EditById(id, employee);
             if (result)
             {
-                return RedirectToAction($"Detail/{id}");
+                return RedirectToAction("Detail", new {id = id});
             }
 
             return View("Update",employee);

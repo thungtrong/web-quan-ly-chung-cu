@@ -31,6 +31,7 @@ namespace ManagerApartmentProject.Controllers
         {
             foreach (var cookie in Request.Cookies.Keys)
             {
+                Console.WriteLine(cookie);
                 if (cookie.Contains("AuthCookie"))
                 {
                     Response.Cookies.Delete(cookie);
@@ -46,7 +47,6 @@ namespace ManagerApartmentProject.Controllers
         {
             PersonModel info = await GetInfo(account);
             // _logger.LogInformation(info.ID, info.name, info.email, info.phoneNumber);
-            Console.WriteLine(info.name);
             if (info == null)
             {
                 ViewBag.Error = true;
@@ -78,9 +78,9 @@ namespace ManagerApartmentProject.Controllers
             var signin = AuthenticationHttpContextExtensions.SignInAsync(HttpContext, principal);
 
             // Ghi lai ID cua nguoi su huu tai khoan
-            CookieOptions cookieOptions = new CookieOptions();
-            cookieOptions.Expires = DateTime.Now.AddMinutes(120);
-            Response.Cookies.Append("Id", info.ID.ToString(), cookieOptions);
+            // CookieOptions cookieOptions = new CookieOptions();
+            // cookieOptions.Expires = DateTime.Now.AddMinutes(120);
+            // Response.Cookies.Append("Id", info.ID.ToString(), cookieOptions);
             
             await signin;
         }

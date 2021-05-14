@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace ManagerApartmentProject.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "AllowedAll")]
+    // [Authorize(Policy = "AllowedAll")]
     public class InvoiceApartmentController : Controller
     {
         private readonly ILogger<InvoiceApartment> _logger;
@@ -72,7 +72,7 @@ namespace ManagerApartmentProject.Controllers
         {
             return RunApi(
                 id,
-                () => _invoiceApartmentRes.UpdateByIdAsync(id, model)
+                () => _invoiceApartmentRes.UpdateById(id, model)
             );
         } 
 

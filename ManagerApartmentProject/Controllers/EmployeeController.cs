@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +39,13 @@ namespace ManagerApartmentProject.Controllers
             }
             bool result = _employeeRes.Create(employee);
             if (result){
-                return RedirectToAction("Index");
+                Account account = new Account{
+                    username = ConstValue.RemoveUnicode(employee.name),
+                    authority = 2,
+                    accountOf = employee.ID
+                };
+                TempData["account"] = JsonSerializer.Serialize(account);
+                return RedirectToAction("Register", "Auth");
             }
             return View(employee);
         }

@@ -47,7 +47,7 @@ namespace ManagerApartmentProject.Repositories
         {
             object[] values = {
                 id,
-               employee.name,
+                employee.name,
                 employee.email,
                 employee.phoneNumber,
                 employee.address,

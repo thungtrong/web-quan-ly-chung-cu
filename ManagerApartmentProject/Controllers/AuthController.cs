@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
+using CAIT.SQLHelper;
 using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -41,12 +45,105 @@ namespace ManagerApartmentProject.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize(Policy = "AdminOrGreater")]
+        public IActionResult Register()
+        {
+            Account account = new Account();
+            if (TempData["account"] != null)
+            {
+                string tmp = Convert.ToString(TempData["account"]);
+                account = JsonSerializer.Deserialize<Account>(tmp);
+                
+            }
+            List<PersonModel> persons = GetPersonDontHaveAccount(account.authority);
+            ViewBag.personList = persons;
+            
+            account.accountOf = persons.Count > 0 ? persons[persons.Count - 1].ID : 0;
+            
+            return View(account);
+        }
+
+        [Authorize(Policy = "AdminOrGreater")]
+        public IActionResult RegisterConfirm(Account account)
+        {
+            bool result = _accountRes.CreateAccount(account);
+            
+            if (result)
+            {
+                if (account.authority == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                if (account.authority == 2)
+                {
+                    return RedirectToAction("Index", "Employee");
+                }
+                if (account.authority == 3)
+                {
+                    return RedirectToAction("Index", "Tenant");
+                }
+            }
+            
+            TempData["account"] = JsonSerializer.Serialize(account);
+
+            return RedirectToAction("Register", "Auth");
+        }
+
+        [Authorize(Policy = "AdminOrGreater")]
+        [Route("[controller]/GetPersonDontHaveAccountApi/{authority}")]
+        public string GetPersonDontHaveAccountApi(int authority)
+        {
+            List<PersonModel> lst;
+            if (authority > 0)
+            {
+                lst = GetPersonDontHaveAccount(authority);
+            }
+            else
+            {
+                lst = new List<PersonModel>();
+            }
+
+            return JsonSerializer.Serialize(lst);
+        }
+
+        private List<PersonModel> GetPersonDontHaveAccount(int authority)
+        {
+            List<PersonModel> lst = new List<PersonModel>();
+            // Admin
+            if (authority == 1)
+            {
+                lst = DataProvider.GetListFrom<PersonModel>(
+                    "GetAdminDontHaveAccount",
+                    null,
+                    (DataRow row) => SQLCommand.Map<PersonModel>(row)
+                );
+            }
+            // Employee
+            if (authority == 2)
+            {
+                lst = DataProvider.GetListFrom<PersonModel>(
+                    "GetEmployeeDontHaveAccount",
+                    null,
+                    (DataRow row) => SQLCommand.Map<PersonModel>(row)
+                );
+            }
+            // Tenant
+            if (authority == 3)
+            {
+                lst = DataProvider.GetListFrom<PersonModel>(
+                    "GetTenantDontHaveAccount",
+                    null,
+                    (DataRow row) => SQLCommand.Map<PersonModel>(row)
+                );
+            }
+            return lst;
+        }
+
         [HttpPost, ActionName("Login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginConfirmedAsync(Account account)
         {
             PersonModel info = await GetInfo(account);
-            // _logger.LogInformation(info.ID, info.name, info.email, info.phoneNumber);
             if (info == null)
             {
                 ViewBag.Error = true;
@@ -109,5 +206,7 @@ namespace ManagerApartmentProject.Controllers
                 return task;
             }
         }
+
+
     }
 }

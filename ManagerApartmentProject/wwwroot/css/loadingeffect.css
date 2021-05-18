@@ -6,9 +6,6 @@ ul.loading-effect {
     display: none;
 }
 
-.show-flex {
-    display: flex;
-}
 
 ul.loading-effect li {
     background: blue;

@@ -100,9 +100,16 @@
                         <p class="mb-1 mt-3 font-weight-semibold">@User.FindFirst(ClaimTypes.Name).Value</p>
                         <p class="font-weight-light text-muted mb-0">@User.FindFirst(ClaimTypes.Email).Value</p>
                     </div>
-                    <a asp-controller="Home" asp-action="Profile" class="dropdown-item"> Thông tin cá nhân </a>
+                    <a asp-controller="Home" asp-action="Profile" class="dropdown-item"> Thông tin cá nhân <i class="fas fa-user-circle"></i></a>
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+                    {
+                        <a asp-controller="Auth" asp-action="Register" class="dropdown-item"> Tạo tài khoản mới <i class="fas fa-id-card"></i></a>
+                    }
+                    
+                    <a asp-controller="Auth" asp-action="RePassword" class="dropdown-item"> Đổi mật khẩu <i class="fas fa-key"></i></a>
                     @* <a class="dropdown-item"><i class="dropdown-item-icon ti-comment-alt"></i></a> *@
-                    <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Đăng xuất<i class="dropdown-item-icon ti-power-off"></i></a>
+                    <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Đăng xuất <i class="fas fa-power-off"></i></i></a>
                 </div>
             </li>
         </ul>

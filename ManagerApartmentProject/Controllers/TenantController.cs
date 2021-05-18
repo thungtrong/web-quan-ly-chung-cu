@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using ManagerApartmentProject.Const;
 using ManagerApartmentProject.Models;
 using ManagerApartmentProject.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -36,8 +38,15 @@ namespace ManagerApartmentProject.Controllers
             }
             var creatorId = int.Parse(User.FindFirst("Id").Value);
             bool result = _tenantRes.Create(tenant);
+
             if (result){
-                return RedirectToAction("Index");
+                Account account = new Account{
+                    username = ConstValue.RemoveUnicode(tenant.name),
+                    authority = 3,
+                    accountOf = tenant.ID
+                };
+                TempData["account"] = JsonSerializer.Serialize(account);
+                return RedirectToAction("Register", "Auth");
             }
             return View(tenant);
         }

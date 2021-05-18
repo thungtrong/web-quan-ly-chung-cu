@@ -9,10 +9,40 @@ namespace ManagerApartmentProject.Repositories
         public PersonModel GetPersonTenantByUserNamePassword(Account account);
         public PersonModel GetPersonEmployeeByUserNamePassword(Account account);
         public PersonModel GetPersonAdminByUserNamePassword(Account account);
+
+        public bool CreateAccount(Account account);
     }
 
     public class AccountRes : IAccountRes
     {
+        public bool CreateAccount(Account account)
+        {
+            if (account != null)
+            {
+                object[] values =  new object[] {
+                    account.username,
+                    account.password,
+                    account.accountOf
+                };
+                // Admin
+                if (account.authority == 1)
+                {
+                    return DataProvider.INSTANCE.ExecuteData("AdminAccount_Create", values);
+                }
+                // Employee
+                if (account.authority == 2)
+                {
+                    return DataProvider.INSTANCE.ExecuteData("EmployeeAccount_Create", values);
+                }
+                // Tenant
+                if (account.authority == 3)
+                {
+                    return DataProvider.INSTANCE.ExecuteData("TenantAccount_Create", values);
+                }
+            }
+            return false;
+        }
+
         public PersonModel GetPersonAdminByUserNamePassword(Account account)
         {
             var person = DataProvider

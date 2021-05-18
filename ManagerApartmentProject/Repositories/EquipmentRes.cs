@@ -15,6 +15,7 @@ namespace ManagerApartmentProject.Repositories
         bool Insert(Equipment apartment);
         bool UpdateById(int id, Equipment apartment);
         bool DeleteById(int id);
+        List<Equipment> GetByApartmentId(int id);
     }
     public class EquipmentRes : IEquipmentRes
     {
@@ -87,6 +88,16 @@ namespace ManagerApartmentProject.Repositories
             bool result = _connection.ExecuteData("Equipment_EditById", value);
 
             return result;
+        }
+
+        public List<Equipment> GetByApartmentId(int id)
+        {
+            return DataProvider.GetListFrom<Equipment>
+            (
+                "Equipment_GetByApartmentId",
+                new object[] { id },
+                _func
+            );
         }
     }
 }

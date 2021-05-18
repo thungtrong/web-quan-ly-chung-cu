@@ -28,10 +28,11 @@ namespace ManagerAparmentProject.Controllers
         }
 
         // GET: Apartment/Detail/5
-        public IActionResult Detail(int id)
+        public IActionResult Detail(int id, [FromServices] IEquipmentRes equipmentRes)
         {
             Apartment apartment = _apartmentRes.GetByID(id);
-            Console.WriteLine(apartment);
+            
+            ViewBag.equipments = equipmentRes.GetByApartmentId(id);
             return View(apartment);
         }
 

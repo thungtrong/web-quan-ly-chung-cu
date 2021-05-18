@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 $(document).ready(() => {
-    var managers = ["Căn Hộ", "Người Thuê", "Dân Cư", "Nhân Viên", "Thông Báo", "Hoá Đơn Thuê", "Chi Phí", "Góp Ý"];
+    var managers = ["chung cư", "Người Thuê", "Dân Cư", "Nhân Viên", "Thông Báo", "Hoá Đơn Thuê", "Chi Phí", "Góp Ý"];
     var _html;
     for (var i = 0; i < managers.length; i++) {
         let manager = managers[i];

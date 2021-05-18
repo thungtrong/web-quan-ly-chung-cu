@@ -28,19 +28,20 @@ namespace ManagerAparmentProject.Controllers
         }
 
         // GET: Floor/Detail/5
-        public IActionResult Detail(int id)
+        public IActionResult Detail(int id, [FromServices] IApartmentRes apartmentRes)
         {
-            Floor apartment = _floorRes.GetByID(id);
+            Floor floor= _floorRes.GetByID(id);
+            ViewBag.apartments = apartmentRes.GetAll();
 
-            return View(apartment);
+            return View(floor);
         }
 
         // GET: Floor/Create
         public IActionResult Create()
         {
-            var apartment = new Floor();
+            var floor = new Floor();
 
-            return View(apartment);
+            return View(floor);
         }
 
         // POST: Floor/Create
@@ -48,18 +49,18 @@ namespace ManagerAparmentProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Floor apartment)
+        public IActionResult Create(Floor floor)
         {
             try
             {
-                var result = _floorRes.Insert(apartment);
+                var result = _floorRes.Insert(floor);
                 if (result)
                 {
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(apartment);
+                    return View(floor);
                 }
 
             }
@@ -86,17 +87,17 @@ namespace ManagerAparmentProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id, Floor apartment)
+        public IActionResult Update(int id, Floor floor)
         {
 
-            var result = _floorRes.UpdateById(id, apartment);
+            var result = _floorRes.UpdateById(id, floor);
             if (result)
             {
                 return RedirectToAction("Detail", new { id = id });
             }
             else
             {
-                return View(apartment);
+                return View(floor);
             }
 
         }

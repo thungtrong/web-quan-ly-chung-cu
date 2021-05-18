@@ -16,6 +16,8 @@ namespace ManagerApartmentProject.Repositories
         public bool DeleteById(int id);
         public bool UpdateById(int id, Apartment apartment);
         public List<ApartmentModel> GetIdNameAll();
+
+        public List<Apartment> GetByFloorId(int id);
     }
     
     public class ApartmentRes : IApartmentRes
@@ -96,6 +98,14 @@ namespace ManagerApartmentProject.Repositories
                             "Apartment_GetIdNameAll",
                             null,
                             (DataRow row) => SQLCommand.Map<ApartmentModel>(row));
+        }
+
+        public List<Apartment> GetByFloorId(int id)
+        {
+            return DataProvider.GetListFrom<Apartment>(
+                "Apartment_GetByFloorId",
+                new object[] {id},
+                _func);
         }
     }
 }

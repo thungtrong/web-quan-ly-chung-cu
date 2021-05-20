@@ -58,7 +58,6 @@ namespace ManagerApartmentProject
 
                 config.AddPolicy("Tenant", policy => policy.RequireRole("Tenant"));
 
-                config.AddPolicy("AllowedAll", policy => policy.RequireRole("SuperAdmin", "Admin", "Employee", "Admin"));
             });
             // End Cau hinh phan quyen
 

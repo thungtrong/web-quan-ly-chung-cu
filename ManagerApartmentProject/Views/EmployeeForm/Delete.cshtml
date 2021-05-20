@@ -1,0 +1,20 @@
+@model EmployeeForm
+
+<form asp-action="Delete" method="post">
+    <input asp-for="ID" type="hidden" />
+    <div class="form-group">
+        <label asp-for="title"></label>
+        <input asp-for="title" class="form-control" >
+        <span asp-validation-for="title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="dateRelease"></label>
+        <input asp-for="dateRelease" class="form-control" >
+        <span asp-validation-for="title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary submit">Delete</button>
+        <button class="btn btn-default" asp-action="Index">Back</button>
+    </div>
+</form>

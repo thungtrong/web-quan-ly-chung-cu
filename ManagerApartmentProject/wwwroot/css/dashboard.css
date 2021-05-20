@@ -31,7 +31,7 @@ a.card-link
     position: absolute;
     right: 20px;
     bottom: 0;
-    font-size: 6em;
+    font-size: 7em;
 }
 
 .dashboard-card:nth-child(1) .card
@@ -61,11 +61,11 @@ a.card-link
 }
 .dashboard-card:nth-child(4) .card
 {
-    background: #e120ed;
+    background: #37053a;
 }
 .dashboard-card:nth-child(4) .card i
 {
-    color: #8220ed;
+    color: #472d64;
 }
 .dashboard-card:nth-child(5) .card
 {
@@ -109,9 +109,25 @@ a.card-link
 }
 .dashboard-card:nth-child(10) .card
 {
-    background: red;
+    background: #c6bfbf;
 }
 .dashboard-card:nth-child(10) .card i
+{
+    color: #a9a0a0;
+}
+.dashboard-card:nth-child(11) .card
+{
+    background: #06741e;
+}
+.dashboard-card:nth-child(11) .card i
+{
+    color: #5f4b00;
+}
+.dashboard-card:nth-child(12) .card
+{
+    background: red;
+}
+.dashboard-card:nth-child(12) .card i
 {
     color: #c30c0c;
 }

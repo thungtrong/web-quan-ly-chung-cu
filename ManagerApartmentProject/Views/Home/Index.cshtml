@@ -3,6 +3,7 @@
 }
 @{
     bool authority = User.IsInRole("SuperAdmin") || User.IsInRole("Admin");
+    bool authority2 = User.IsInRole("SuperAdmin") || User.IsInRole("Admin")||User.IsInRole("Employee");
 }
 <div class="row">
     @if (authority)
@@ -22,7 +23,7 @@
             <div class="card">
                 <div class="card-body">
                     <a class="card-link" id="apartment" asp-controller="Apartment" asp-action="Index">
-                        <span class="menu-title">chung cư</span>
+                        <span class="menu-title">Chung Cư</span>
                     </a>
                     <i class="fas fa-home"></i>
                 </div>
@@ -33,7 +34,7 @@
             <div class="card">
                 <div class="card-body">
                     <a class="card-link" asp-controller="Equipment" asp-action="Index">
-                        <span class="menu-title">Thiết bị</span>
+                        <span class="menu-title">Thiết Bị</span>
                     </a>
                     <i class="fas fa-th"></i>
                 </div>
@@ -44,7 +45,7 @@
             <div class="card">
                 <div class="card-body">
                     <a class="card-link" asp-controller="Tenant" asp-action="Index">
-                        <span class="menu-title">Dân cư</span>
+                        <span class="menu-title">Dân Cư</span>
                     </a>
                     <i class="fas fa-users"></i>
                 </div>
@@ -55,33 +56,46 @@
             <div class="card">
                 <div class="card-body">
                     <a class="card-link " asp-controller="Employee" asp-action="Index">
-                        <span class="menu-title">Nhân viên</span>
+                        <span class="menu-title">Nhân Viên</span>
                     </a>
                     <i class="fas fa-user-friends"></i>
                 </div>
             </div>
         </div>
+    }
 
+    @if (authority2)
+    {
+        <div class="col-xs-12 col-md-4 col-lg-3 grid-margin stretch-card dashboard-card">
+            <div class="card">
+                <div class="card-body">
+                    <a class="card-link " asp-controller="EmployeeForm" asp-action="Index">
+                        <span class="menu-title">Đơn Nhân Viên</span>
+                    </a>
+                    <i class="fas fa-file-alt"></i>
+                </div>
+            </div>
+        </div>
     }
 
     <div class="col-xs-12 col-md-4 col-lg-3 grid-margin stretch-card dashboard-card">
         <div class="card">
             <div class="card-body">
                 <a class="card-link" id="invoice-apartment" asp-controller="InvoiceApartment" asp-action="Index">
-                    <span class="menu-title">Thanh toán</span>
+                    <span class="menu-title">Thanh Toán</span>
                 </a>
                 <i class="fas fa-file-invoice"></i>
             </div>
         </div>
     </div>
+    
     @if (authority)
     {
-
         <div class="col-xs-12 col-md-4 col-lg-3 grid-margin stretch-card dashboard-card">
             <div class="card">
                 <div class="card-body">
                     <a class="card-link" asp-controller="InvoiceBuilding" asp-action="Index">
-                        <span class="menu-title">Chi tiêu</span>
+                        <span class="menu-title">Chi Tiêu</span>
                     </a>
                     <i class="fas fa-money-bill-wave"></i>
                 </div>
@@ -92,7 +106,7 @@
             <div class="card">
                 <div class="card-body">
                     <a class="card-link" asp-controller="Maintenance" asp-action="Index">
-                        <span class="menu-title">Bảo trì</span>
+                        <span class="menu-title">Bảo Trì</span>
                     </a>
                     <i class="fas fa-wrench"></i>
                 </div>
@@ -113,6 +127,16 @@
         </div>
     </div>
 
+    <div class="col-xs-12 col-md-4 col-lg-3 grid-margin stretch-card dashboard-card">
+        <div class="card">
+            <div class="card-body">
+                <a class="card-link " asp-controller="Complain" asp-action="Index">
+                    <span class="menu-title">Góp Ý</span>
+                </a>
+                <i class="fas fa-comment-dots"></i>
+            </div>
+        </div>
+    </div>
 </div>
 @section Css {
 <link rel="stylesheet" href="~/css/dashboard.css">

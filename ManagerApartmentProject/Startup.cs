@@ -53,12 +53,14 @@ namespace ManagerApartmentProject
                 config.AddPolicy("SuperAdmin", policy => policy.RequireRole("SuperAdmin"));
 
                 config.AddPolicy("AdminOrGreater", policy => policy.RequireRole("SuperAdmin", "Admin"));
-                
+
+                config.AddPolicy("EmployeeOrTenant", policy => policy.RequireRole("Employee", "Tenant"));
+
                 config.AddPolicy("Employee", policy => policy.RequireRole("Employee"));
 
                 config.AddPolicy("Tenant", policy => policy.RequireRole("Tenant"));
 
-                config.AddPolicy("AllowedAll", policy => policy.RequireRole("SuperAdmin", "Admin", "Employee", "Admin"));
+                config.AddPolicy("AllowedAll", policy => policy.RequireRole("SuperAdmin", "Employee", "Admin"));
             });
             // End Cau hinh phan quyen
 
@@ -74,8 +76,10 @@ namespace ManagerApartmentProject
             services.AddScoped<IEmployeeRes, EmployeeRes>(); 
             services.AddScoped<ITenantRes, TenantRes>(); 
             services.AddScoped<IAccountRes, AccountRes>();
+            services.AddScoped<IComplaintRes, ComplaintRes>();
+            services.AddScoped<IEmployeeFormRes, EmployeeFormRes>();
             //  End add service for Respositories
-            
+
             DataProvider.AddInstance(Configuration.GetConnectionString("DefaultConnection"));
             
             // ConstValue.ConnectionString = Configuration.GetConnectionString("DefaultConnection");

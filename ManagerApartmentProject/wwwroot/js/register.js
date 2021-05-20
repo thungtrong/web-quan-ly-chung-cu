@@ -77,6 +77,5 @@ $(() => {
         return beforeSubmit();;
     });
 
-
     typeAccountChange();
 });

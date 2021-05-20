@@ -9,8 +9,8 @@ namespace ManagerApartmentProject.Repositories
         public PersonModel GetPersonTenantByUserNamePassword(Account account);
         public PersonModel GetPersonEmployeeByUserNamePassword(Account account);
         public PersonModel GetPersonAdminByUserNamePassword(Account account);
-
         public bool CreateAccount(Account account);
+        bool RePassword(Account account);
     }
 
     public class AccountRes : IAccountRes
@@ -81,6 +81,33 @@ namespace ManagerApartmentProject.Repositories
                             }
                         );
             return person;
+        }
+
+        public bool RePassword(Account account)
+        {
+            object[] values = new object[] {
+                account.password,
+                account.newPassword,
+                account.accountOf
+            };
+
+            // Admin
+            if (account.authority == 1 || account.authority == 0)
+            {
+                bool result = DataProvider.INSTANCE.ExecuteData("AdminAccount_EditPassword", values);
+                return result;
+            }
+            // Employee
+            if (account.authority == 2)
+            {
+                return DataProvider.INSTANCE.ExecuteData("EmployeeAccount_EditPassword", values);
+            }
+            // Tenant
+            if (account.authority == 3)
+            {
+                return DataProvider.INSTANCE.ExecuteData("TenantAccount_EditPassword", values);
+            }
+            return false;
         }
     }
 

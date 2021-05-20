@@ -208,5 +208,46 @@ namespace ManagerApartmentProject.Controllers
         }
 
 
+        public IActionResult RePassword()
+        {
+            Account account = new Account{
+                accountOf = Convert.ToInt32(User.FindFirst("Id").Value)
+            };
+            return View(account);
+        }
+
+        [HttpPost, ActionName("RePassword")]
+        [ValidateAntiForgeryToken]
+        public IActionResult RePasswordConfirm(Account account)
+        {
+            if (User.IsInRole("SuperAdmin"))
+            {
+                account.authority = 0;
+            }
+
+            if (User.IsInRole("Admin"))
+            {
+                account.authority = 1;
+            }
+
+            if (User.IsInRole("Employee"))
+            {
+                account.authority = 2;
+            }
+
+            if (User.IsInRole("Tenant"))
+            {
+                account.authority = 3;
+            }
+            bool result = _accountRes.RePassword(account);
+            if (result)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            account = new Account();
+            return View();
+        }
+
+
     }
 }

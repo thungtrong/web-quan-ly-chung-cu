@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ManagerApartmentProject.Models
 {
-    [Bind("username,password,authority,accountOf")]
+    [Bind("username,password,newPassword,authority,accountOf")]
     public class Account
     {
 
@@ -17,6 +17,9 @@ namespace ManagerApartmentProject.Models
         
         [Required(ErrorMessage = "Mật khẩu không được để trống")]
         public string password { get; set; }
+
+        [Required(ErrorMessage = "Mật khẩu mới không được để trống")]
+        public string newPassword { get; set; }
         //
         // 0 : Super Admin
         // 1 : Admin

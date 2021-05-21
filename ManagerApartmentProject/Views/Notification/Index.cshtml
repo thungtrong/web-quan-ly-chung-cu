@@ -12,9 +12,11 @@
         <li class="nav-item">
             <a class="nav-link active" href="#all" data-toggle="tab">Tất cả</a>
         </li>
+        @if(User.IsInRole("Admin")||User.IsInRole("SuperAdmin")){
         <li class="nav-item">
             <a class="nav-link" href="#my" data-toggle="tab">Của tôi</a>
         </li>
+        }
     </ul>
 </div>
 <!-- Content: List notification -->

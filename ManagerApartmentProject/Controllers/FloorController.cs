@@ -31,7 +31,7 @@ namespace ManagerAparmentProject.Controllers
         public IActionResult Detail(int id, [FromServices] IApartmentRes apartmentRes)
         {
             Floor floor= _floorRes.GetByID(id);
-            ViewBag.apartments = apartmentRes.GetAll();
+            ViewBag.apartments = apartmentRes.GetByFloorId(id);
 
             return View(floor);
         }

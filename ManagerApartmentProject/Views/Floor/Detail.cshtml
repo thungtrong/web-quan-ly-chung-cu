@@ -1,5 +1,5 @@
 @model Floor
-
+@* @await Html.PartialAsync("_Form.cshtml", new {model = Model, disabled=true}) *@
 <h3>Thông tin tầng</h3>
 <form>
     <div class="form-group">
@@ -20,6 +20,9 @@
 </form>
 
 <br>
-<div class="form-group">
-    <a class="btn btn-default" asp-action="Index">Back</a>
-</div>
+<h3>Danh sách chung cư</h3>
+
+@await Html.PartialAsync("../Apartment/Index.cshtml", ViewBag.apartments, null)
+
+<br>
+

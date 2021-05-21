@@ -93,7 +93,7 @@ namespace ManagerAparmentProject.Controllers
             var result = _floorRes.UpdateById(id, floor);
             if (result)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Detail", new { id = id });
             }
             else
             {
